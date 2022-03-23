@@ -2,13 +2,13 @@ import React from 'react';
 
 const styles = {
   username: {
-    width: '125px',
+    width: '160px',
     margin: '5px',
     border: 'none',
     backgroundColor: '#e5e3e3'
   },
   password: {
-    width: '125px',
+    width: '160px',
     margin: '10px',
     border: 'none',
     backgroundColor: '#e5e3e3'
@@ -27,11 +27,11 @@ export default class SignIn extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <div className="sign-in-titles">
           <h5>Sign In</h5>
         </div>
-        <div>
+
           <form >
             <div className="sign-in-input">
               <label>Username:   </label>
@@ -45,8 +45,8 @@ export default class SignIn extends React.Component {
               <button className="sign-in-enter" style={styles.button}>Enter</button>
             </div>
           </form>
-        </div>
-      </div>
+
+      </>
 
     );
   }

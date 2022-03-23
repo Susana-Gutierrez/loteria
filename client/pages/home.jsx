@@ -14,7 +14,7 @@ export default function Home(props) {
         <div className="container">
 
         <div className="row">
-          <div className="column">
+          <div className="column-half">
             <div className="home-column-title">
               <Title />
             </div>
@@ -23,7 +23,7 @@ export default function Home(props) {
           </div>
         </div>
 
-          <div className="column">
+          <div className="column-half">
             <div className="column-sign-in">
               <div className="sign-in-button" onClick={handleClick}>Sign In
               </div>

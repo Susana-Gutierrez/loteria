@@ -1,6 +1,6 @@
 .container {
   max-width: 992px;
-  margin: 0 auto;
+  margin: 0 auto 5%;
   padding: 0 1rem;
   text-align: center;
 }
@@ -22,10 +22,6 @@
 
 .column-new-account {
   flex-basis: calc(100% / 3);
-}
-
-@media screen and (min-width: 576px) {
-
 }
 
 @media screen and (min-width: 768px) {

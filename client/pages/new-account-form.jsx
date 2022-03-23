@@ -280,7 +280,7 @@ export default class NewAccountForm extends React.Component {
       <div className="row">
         <div className="column-half">
             <div className="new-account-logo">
-              <Logo className="new-player-img-logo" />
+              <Logo className="new-account-img-logo" />
             </div>
         </div>
 

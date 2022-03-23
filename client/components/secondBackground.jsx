@@ -6,7 +6,7 @@ import Title from './title';
 export default function SecondBackground(props) {
 
   return (
-    <div>
+    <>
       <div className="container">
         <div className="new-account-column-title">
           <Title />
@@ -21,7 +21,7 @@ export default function SecondBackground(props) {
           </div>
         </div>
       </div>
-    </div>
+    </>
 
   );
 

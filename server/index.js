@@ -35,7 +35,7 @@ app.get('/api/auth/sign-up', (req, res, next) => {
 });
 
 app.post('/api/auth/sign-up', (req, res, next) => {
-  console.log('req.body', req.body);
+
   const { firstName, lastName, email, userName, password } = req.body;
   if (!firstName || !lastName || !userName || !password) {
     throw new ClientError(400, 'First Name, Last Name, username and password are required fields');
