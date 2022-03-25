@@ -120,6 +120,12 @@ body {
   color: red;
 }
 
+.sign-in-error-message {
+  padding: 5%;
+  text-align: center;
+  color: red;
+}
+
 .new-account-logo {
   padding-left: 20%;
   padding-right: 20%;
@@ -147,6 +153,16 @@ body {
   width: 25%;
 }
 
+.main-menu-img-logo {
+  width: 75%;
+}
+
+.main-menu-logo {
+  display: flex;
+  justify-content: center;
+  padding-top: 25%;
+}
+
 .home-column-title {
   margin-top: 10%;
   margin-bottom: 10%;
@@ -158,8 +174,35 @@ body {
   margin-bottom: 5%;
 }
 
+.main-menu-button {
+  margin: 10%;
+  width: 201px;
+  height: 142px;
+  border-radius: 10px;
+  background-color: #c4c4c4;
+  font-size: 25px;
+  padding-top: 45px;
+  cursor: pointer;
+}
+
+.profile {
+  width: 84px;
+  height: 76px;
+  border-radius: 50%;
+}
+
+.profile-container {
+  padding: 5%;
+  display: flex;
+  justify-content: right;
+}
+
 @media screen and (min-width: 770px) {
   .home-img-logo {
+    width: 100%;
+  }
+
+  .main-menu-img-logo {
     width: 100%;
   }
 

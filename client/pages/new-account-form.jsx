@@ -22,7 +22,6 @@ const styles = {
     margin: '3px'
   },
   input: {
-    /* width: '250px', */
     width: '170px',
     height: '25px',
     border: 'none',

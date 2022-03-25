@@ -6,4 +6,5 @@ export default function Logo(props) {
   return (
     <img className={props.className} src={logo} />
   );
+
 }
