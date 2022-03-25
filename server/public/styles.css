@@ -1,0 +1,239 @@
+body {
+  background-color: #48a5a5;
+}
+
+.hidden {
+  display: none;
+}
+
+.tittle {
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.sign-in-button {
+  width: 171px;
+  height: 50px;
+  margin-top: 15%;
+  margin-right: 0;
+  padding-top: 5px;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: #c4c4c4;
+  text-align: center;
+  cursor: pointer;
+}
+
+.sign-up-label {
+  padding: 1%;
+}
+
+.sign-up-input {
+  padding: 5%;
+}
+
+.column-sign-in {
+  display: flex;
+  justify-content: right;
+}
+
+.column-sign-up {
+  text-align: left;
+  justify-content: left;
+}
+
+.blue-background-only {
+  background-color: #092f8e;
+}
+
+.blue-background {
+  display: flex;
+  width: 1584px;
+  height: 98%;
+  background-color: #092f8e;
+}
+
+.small-blue-background {
+  display: flex;
+  height: 765px;
+  background-color: #092f8e;
+}
+
+.small-gray-background {
+  width: 100%;
+  height: 93%;
+  background-color: #c4c4c4;
+  margin: 25px 5px;
+}
+
+.gray-background {
+  width: 100%;
+  height: 93%;
+  background-color: #c4c4c4;
+  margin: 25px;
+}
+
+.sign-in-titles {
+  margin: 25% 20% 10%;
+  text-align: left;
+}
+
+.fields,
+.labels {
+  padding-left: 50px;
+}
+
+.new-account-tittle {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.create-account-button {
+  padding: 5px;
+  width: 100px;
+  font-size: 12px;
+  background-color: #e5e3e3;
+  border-radius: 7px;
+  height: 35px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.container-create-account-button {
+  display: flex;
+  justify-content: center;
+}
+
+.x-mark {
+  font-weight: bolder;
+  color: red;
+}
+
+.check-mark {
+  font-weight: bolder;
+  color: green;
+}
+
+.sign-up-error-message {
+  text-align: left;
+  color: red;
+}
+
+.sign-in-error-message {
+  padding: 5%;
+  text-align: center;
+  color: red;
+}
+
+.new-account-logo {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.new-player-logo {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.home-logo {
+  align-content: center;
+}
+
+.home-img-logo {
+  width: 95%;
+}
+
+.new-account-img-logo {
+  width: 100%;
+}
+
+.new-player-img-logo {
+  width: 25%;
+}
+
+.main-menu-img-logo {
+  width: 75%;
+}
+
+.main-menu-logo {
+  display: flex;
+  justify-content: center;
+  padding-top: 25%;
+}
+
+.home-column-title {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.new-account-column-title,
+.column-title {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.main-menu-button {
+  margin: 10%;
+  width: 201px;
+  height: 142px;
+  border-radius: 10px;
+  background-color: #c4c4c4;
+  font-size: 25px;
+  padding-top: 45px;
+  cursor: pointer;
+}
+
+.profile {
+  width: 84px;
+  height: 76px;
+  border-radius: 50%;
+}
+
+.profile-container {
+  padding: 5%;
+  display: flex;
+  justify-content: right;
+}
+
+@media screen and (min-width: 770px) {
+  .home-img-logo {
+    width: 100%;
+  }
+
+  .main-menu-img-logo {
+    width: 100%;
+  }
+
+  .sign-in-button {
+    margin-top: 30%;
+  }
+
+  .sign-in-input {
+    margin: 5% 20%;
+    text-align: left;
+  }
+
+  .sign-up-label {
+    padding: 5% 10%;
+    text-align: right;
+  }
+
+  .sign-up-input {
+    padding: 5% 1%;
+    text-align: left;
+  }
+
+  .blue-background {
+    display: flex;
+    width: 1584px;
+    height: 757px;
+    background-color: #092f8e;
+  }
+
+  .create-account-button {
+    font-size: 15px;
+    width: 250px;
+  }
+}

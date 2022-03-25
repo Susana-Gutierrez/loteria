@@ -1,0 +1,42 @@
+.container {
+  max-width: 992px;
+  margin: 0 auto 5%;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.row-reverse {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: center;
+}
+
+.column,
+.column-third {
+  flex-basis: 100%;
+}
+
+.column-new-account {
+  flex-basis: calc(100% / 3);
+}
+
+@media screen and (min-width: 768px) {
+  .column {
+    flex-basis: calc(100% / 2);
+  }
+
+  .column-half {
+    flex-basis: calc(100% / 2);
+  }
+
+  .column-third {
+    flex-basis: calc(100% / 3);
+  }
+}
