@@ -3,7 +3,6 @@ import MainMenu from '../pages/main-menu';
 import Title from './title';
 
 export default function ThirdBackground(props) {
-  console.log('this is main third background');
 
   return (
    <>

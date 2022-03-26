@@ -35,6 +35,32 @@ app.get('/api/auth/sign-up', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/user/:userId', (req, res, next) => {
+  const userId = Number(req.params.userId);
+  if (!userId) {
+    throw new ClientError(401, 'invalid user');
+  }
+  const sql = `
+  select "firstName",
+         "lastName",
+         "email",
+         "username"
+      from "users"
+    where "userId" = $1
+  `;
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      if (!user) {
+        throw new ClientError(401, 'invalid user');
+      }
+      res.status(201).json(user);
+    })
+    .catch(err => next(err));
+
+});
+
 app.post('/api/auth/sign-up', (req, res, next) => {
 
   const { firstName, lastName, email, userName, password } = req.body;
