@@ -13,10 +13,15 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       user: null,
+      firstName: '',
+      lastName: '',
+      email: '',
+      username: '',
       isAuthorizing: true,
       route: parseRoute(window.location.hash)
     };
     this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleUserData = this.handleUserData.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +33,16 @@ export default class App extends React.Component {
     const token = window.localStorage.getItem('react-context-jwt');
     const user = token ? decodeToken(token) : null;
     this.setState({ user, isAuthorizing: false });
+  }
+
+  handleUserData(user) {
+    this.setState({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      username: user.username
+    });
+
   }
 
   handleSignIn(result) {
@@ -51,15 +66,18 @@ export default class App extends React.Component {
     if (route.path === 'main-menu') {
       return <ThirdBackground />;
     }
+    if (route.path === 'profile-form') {
+      return <SecondBackground />;
+    }
     return <NotFound />;
   }
 
   render() {
 
     if (this.state.isAuthorizing) return null;
-    const { user, route } = this.state;
-    const { handleSignIn } = this;
-    const contextValue = { user, route, handleSignIn };
+    const { user, firstName, lastName, email, username, route } = this.state;
+    const { handleSignIn, handleUserData } = this;
+    const contextValue = { user, firstName, lastName, email, username, route, handleSignIn, handleUserData };
 
     return (
     <AppContext.Provider value={contextValue}>
@@ -72,3 +90,4 @@ export default class App extends React.Component {
 }
 
 Background.contextType = AppContext;
+SecondBackground.contextType = AppContext;
