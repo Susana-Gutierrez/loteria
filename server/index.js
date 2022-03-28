@@ -61,6 +61,34 @@ app.get('/api/user/:userId', (req, res, next) => {
 
 });
 
+app.put('/api/user/:userId', (req, res, next) => {
+  const userId = Number(req.params.userId);
+  const { firstName, lastName, email, username } = req.body;
+  if (!userId) {
+    throw new ClientError(401, 'invalid user');
+  }
+  const sql = `
+    update "users"
+      set "firstName" = $2,
+          "lastName" = $3,
+          "email" = $4,
+          "username" = $5
+    where "userId" = $1
+    returning "userId", "username"
+  `;
+  const params = [userId, firstName, lastName, email, username];
+
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      if (!user) {
+        throw new ClientError(401, 'invalid user');
+      }
+      res.status(201).json(user);
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/auth/sign-up', (req, res, next) => {
 
   const { firstName, lastName, email, userName, password } = req.body;

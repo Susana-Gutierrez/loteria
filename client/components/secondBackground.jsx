@@ -8,13 +8,15 @@ import AppContext from '../lib/app-context';
 export default class SecondBackground extends React.Component {
 
   renderPage() {
-    const { route } = this.context;
+
+    const { route, firstName, lastName, email, username } = this.context;
+    const value = { firstName, lastName, email, username };
 
     if (route.path === 'sign-up') {
       return <NewAccountForm />;
     }
-    if (route.path === 'profile-form') {
-      return <ProfileForm />;
+    if ((route.path === 'profile-form') && (value.username !== '')) {
+      return <ProfileForm value={value} />;
     }
 
   }
@@ -39,6 +41,7 @@ export default class SecondBackground extends React.Component {
             </div>
           </div>
         </div>
+
       </>
 
     );
