@@ -39,9 +39,8 @@ export default class MainMenu extends React.Component {
         .then(res => res.json())
         .then(user => {
           handleUserData(user);
+          window.location.hash = 'profile-form';
         });
-
-      window.location.hash = 'profile-form';
     }
   }
 
