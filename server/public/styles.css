@@ -263,6 +263,7 @@ body {
   border: none;
   padding-top: 1%;
   cursor: pointer;
+  margin: 2%;
 }
 
 .modal-message {

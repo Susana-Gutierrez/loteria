@@ -66,6 +66,36 @@ export default class ProfileForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+
+  }
+
+  closeModal() {
+
+    this.setState({
+      overlayStatus: 'hidden',
+      modalStatus: 'hidden'
+    });
+  }
+
+  handleDelete(user) {
+
+    const req = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    fetch(`/api/user/${user.userId}`, req)
+      .then(res => res.json())
+      .then(result => {
+        if (result.error) {
+          this.handleErrorMessage(result.error);
+        }
+      });
+
+    this.setState({ modalValue: 'delete-confirmation' });
 
   }
 
@@ -207,13 +237,13 @@ export default class ProfileForm extends React.Component {
     event.preventDefault();
 
     if (action === 'cancel') {
-
       if (this.state.page === 'edit') {
         this.setState({ page: 'profile' });
       } else {
         window.location.hash = 'main-menu';
       }
     }
+
     if (action === 'edit') {
       this.setState({
         isInputDisabled: false,
@@ -224,6 +254,11 @@ export default class ProfileForm extends React.Component {
     if (action === 'save') {
       this.setState({ modalValue: 'save' });
       this.saveChanges();
+    }
+
+    if (action === 'delete') {
+      this.setState({ modalValue: 'delete' });
+      this.handleModal();
     }
 
   }
@@ -276,6 +311,8 @@ export default class ProfileForm extends React.Component {
 
     const fields = this.getFields();
     const buttons = this.getButtons();
+    const { handleDelete, closeModal } = this;
+    const action = { handleDelete, closeModal };
 
     return (
       <>
@@ -303,7 +340,7 @@ export default class ProfileForm extends React.Component {
           </div>
         </div>
         <Overlay className={this.state.overlayStatus} />
-        <Modal className={this.state.modalStatus} value={this.state.modalValue} />
+        <Modal className={this.state.modalStatus} value={this.state.modalValue} action={action}/>
       </>
     );
   }
