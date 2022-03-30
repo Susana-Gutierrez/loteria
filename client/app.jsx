@@ -75,6 +75,9 @@ export default class App extends React.Component {
     if (route.path === 'profile-form') {
       return <SecondBackground />;
     }
+    if (route.path === 'instructions') {
+      return <SecondBackground />;
+    }
     return <NotFound />;
   }
 
