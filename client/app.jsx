@@ -21,6 +21,7 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash)
     };
     this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
     this.handleUserData = this.handleUserData.bind(this);
   }
 
@@ -52,6 +53,11 @@ export default class App extends React.Component {
     window.location.hash = 'main-menu';
   }
 
+  handleSignOut() {
+    window.localStorage.removeItem('react-context-jwt');
+    this.setState({ user: null });
+  }
+
   renderPage() {
     const { route } = this.state;
     if (route.path === '') {
@@ -76,8 +82,8 @@ export default class App extends React.Component {
 
     if (this.state.isAuthorizing) return null;
     const { user, firstName, lastName, email, username, route } = this.state;
-    const { handleSignIn, handleUserData } = this;
-    const contextValue = { user, firstName, lastName, email, username, route, handleSignIn, handleUserData };
+    const { handleSignIn, handleSignOut, handleUserData } = this;
+    const contextValue = { user, firstName, lastName, email, username, route, handleSignIn, handleSignOut, handleUserData };
 
     return (
     <AppContext.Provider value={contextValue}>
