@@ -280,7 +280,31 @@ body {
   color: red;
 }
 
+.ol-instructions {
+  padding-top: 10%;
+}
+
+.list-instructions {
+  text-align: left;
+  padding-right: 7%;
+  font-size: 15px;
+}
+
+.instructions-button {
+  width: 120px;
+  height: 40px;
+  border-radius: 7px;
+  background-color: #dbdbdb;
+  border: none;
+  margin: 3%;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 770px) {
+  .ol-instructions {
+    padding-top: 0;
+  }
+
   .home-img-logo {
     width: 100%;
   }

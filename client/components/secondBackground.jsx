@@ -4,6 +4,7 @@ import NewAccountForm from '../pages/new-account-form';
 import Title from './title';
 import ProfileForm from '../pages/profile-form';
 import AppContext from '../lib/app-context';
+import Instructions from '../pages/instructions';
 
 export default class SecondBackground extends React.Component {
 
@@ -17,6 +18,9 @@ export default class SecondBackground extends React.Component {
     }
     if ((route.path === 'profile-form') && (value.username !== '')) {
       return <ProfileForm value={value} />;
+    }
+    if (route.path === 'instructions') {
+      return <Instructions />;
     }
 
   }

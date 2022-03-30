@@ -4,9 +4,9 @@ import Profile from '../components/profile';
 import AppContext from '../lib/app-context';
 
 const button = [
-  { name: 'Create Game', url: '' },
-  { name: 'Access Game', url: '' },
-  { name: 'Instructions', url: '' }
+  { name: 'Create Game', path: '' },
+  { name: 'Access Game', path: '' },
+  { name: 'Instructions', path: 'instructions' }
 ];
 
 export default class MainMenu extends React.Component {
@@ -22,6 +22,10 @@ export default class MainMenu extends React.Component {
   }
 
   handleClick(event) {
+
+    if (event === 'instructions') {
+      window.location.hash = 'instructions';
+    }
 
     if (event === 'Menu-Profile') {
       this.setState({ isProfileClicked: !this.state.isProfileClicked });
@@ -49,7 +53,7 @@ export default class MainMenu extends React.Component {
     const listButtons = button.map((button, index) => {
       return (
         <div key={index} className="row">
-          <div className="main-menu-button">{button.name}</div>
+          <div className="main-menu-button" onClick={() => this.handleClick(button.path)}>{button.name}</div>
         </div>
       );
     });
