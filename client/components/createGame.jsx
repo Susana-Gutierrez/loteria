@@ -11,6 +11,10 @@ export default class CreateGame extends React.Component {
 
   }
 
+  componentDidMount() {
+    this.createGame();
+  }
+
   getGame(gameResult) {
 
     if (this.state.game === '') {
@@ -56,7 +60,6 @@ export default class CreateGame extends React.Component {
 
   render() {
 
-    this.createGame();
     return (
         <>{this.state.game}</>
     );
