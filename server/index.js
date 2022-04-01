@@ -169,6 +169,25 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
 });
 
+app.post('/api/games', (req, res, next) => {
+  const { game } = req.body;
+  if (!game) {
+    throw new ClientError(401, 'invalid game');
+  }
+  const sql = `
+    insert into "games" ("gameName")
+    values ($1)
+    returning *
+  `;
+  const params = [game];
+  db.query(sql, params)
+    .then(result => {
+      const [game] = result.rows;
+      res.status(201).json(game);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

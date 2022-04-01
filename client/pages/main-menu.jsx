@@ -2,11 +2,13 @@ import React from 'react';
 import Logo from '../components/logo';
 import Profile from '../components/profile';
 import AppContext from '../lib/app-context';
+import Modal from '../components/modal';
+import Overlay from '../components/overlay';
 
 const button = [
-  { name: 'Create Game', path: '' },
-  { name: 'Access Game', path: '' },
-  { name: 'Instructions', path: 'instructions' }
+  { name: 'Create Game', action: 'create-game' },
+  { name: 'Access Game', action: '' },
+  { name: 'Instructions', action: 'instructions' }
 ];
 
 export default class MainMenu extends React.Component {
@@ -15,13 +17,39 @@ export default class MainMenu extends React.Component {
 
     this.state = {
       isProfileClicked: false,
-      profileMenu: 'hidden'
+      profileMenu: 'hidden',
+      overlayStatus: 'hidden',
+      modalStatus: 'hidden',
+      modalValue: ''
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.handleModalValue = this.handleModalValue.bind(this);
+  }
+
+  handleModalValue() {
+    this.setState({ modalValue: '' });
+  }
+
+  closeModal() {
+
+    this.setState({
+      overlayStatus: 'hidden',
+      modalStatus: 'hidden'
+    });
   }
 
   handleClick(event) {
+
+    if (event === 'create-game') {
+      this.setState({
+        overlayStatus: '',
+        modalStatus: '',
+        modalValue: 'create-game'
+      });
+
+    }
 
     if (event === 'instructions') {
       window.location.hash = 'instructions';
@@ -53,7 +81,7 @@ export default class MainMenu extends React.Component {
     const listButtons = button.map((button, index) => {
       return (
         <div key={index} className="row">
-          <div className="main-menu-button" onClick={() => this.handleClick(button.path)}>{button.name}</div>
+          <div className="main-menu-button" onClick={() => this.handleClick(button.action)}>{button.name}</div>
         </div>
       );
     });
@@ -65,6 +93,8 @@ export default class MainMenu extends React.Component {
   render() {
 
     const button = this.getButton();
+    const { closeModal, handleModalValue } = this;
+    const action = { closeModal, handleModalValue };
 
     return (
       <>
@@ -88,6 +118,8 @@ export default class MainMenu extends React.Component {
             </div>
           </div>
         </div>
+        <Overlay className={this.state.overlayStatus} />
+        <Modal className={this.state.modalStatus} value={this.state.modalValue} action={action} />
       </>
 
     );
