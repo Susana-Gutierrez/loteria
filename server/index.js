@@ -188,6 +188,28 @@ app.post('/api/games', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/game/:gameName', (req, res, next) => {
+  const gameName = req.params.gameName;
+  if (!gameName) {
+    throw new ClientError(401, 'invalid user');
+  }
+  const sql = `
+  select *
+    from "games"
+    where "gameName" = $1
+  `;
+  const params = [gameName];
+  db.query(sql, params)
+    .then(result => {
+      const [game] = result.rows;
+      if (!game) {
+        throw new ClientError(401, 'invalid game');
+      }
+      res.status(201).json(game);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

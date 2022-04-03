@@ -300,6 +300,59 @@ body {
   cursor: pointer;
 }
 
+.acces-game-logo {
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-top: 30%;
+}
+
+.access-game-form-container {
+  padding-top: 15%;
+  padding-bottom: 30%;
+  padding-left: 15%;
+}
+
+.access-game-input {
+  text-align: left;
+  padding-top: 10%;
+}
+
+.access-game-title {
+  text-align: left;
+}
+
+.access-game-button {
+  margin-top: 5%;
+  text-align: left;
+}
+
+.game-menu-logo {
+  padding-top: 10%;
+}
+
+.game-menu-img-logo {
+  width: 80%;
+}
+
+.game-menu-button-container {
+  margin: 5%;
+}
+
+.access-game-error-message {
+  padding-top: 5%;
+  padding-left: 12%;
+  text-align: left;
+  color: red;
+}
+
+.form-access-game {
+  margin: 2%;
+}
+
+.access-game-column-half {
+  height: 400px;
+}
+
 @media screen and (min-width: 770px) {
   .ol-instructions {
     padding-top: 0;
@@ -351,5 +404,17 @@ body {
   .pop-up {
     width: 467px;
     height: 214px;
+  }
+
+  .game-menu-img-logo {
+    width: 30%;
+  }
+
+  .access-game-form-container {
+    padding-top: 50%;
+  }
+
+  .access-game-column-half {
+    height: auto;
   }
 }

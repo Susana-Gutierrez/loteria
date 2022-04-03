@@ -7,7 +7,7 @@ import Overlay from '../components/overlay';
 
 const button = [
   { name: 'Create Game', action: 'create-game' },
-  { name: 'Access Game', action: '' },
+  { name: 'Access Game', action: 'access-game' },
   { name: 'Instructions', action: 'instructions' }
 ];
 
@@ -49,6 +49,10 @@ export default class MainMenu extends React.Component {
         modalValue: 'create-game'
       });
 
+    }
+
+    if (event === 'access-game') {
+      window.location.hash = 'access-game';
     }
 
     if (event === 'instructions') {
