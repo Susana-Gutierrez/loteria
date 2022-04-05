@@ -210,6 +210,63 @@ app.get('/api/game/:gameName', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/cards', (req, res, next) => {
+  const sql = `
+    select "cardId",
+          "cardName"
+      from "cards"
+  `;
+  db.query(sql)
+    .then(result => {
+      const cards = result.rows;
+      res.status(200).json(cards);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/images', (req, res, next) => {
+  const sql = `
+    select "cardName",
+           "imageId",
+           "imageName",
+           "imageUrl"
+      from "cards"
+    join "imagesAssigned" using ("cardId")
+    join "images" using ("imageId")
+  `;
+  /* const params = [cardName]; */
+  db.query(sql)
+    .then(result => {
+      const images = result.rows;
+      res.status(200).json(images);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/cards', (req, res, next) => {
+  const { userId, cardId, gameId } = req.body;
+  if ((!userId) && (!cardId) && (!gameId)) {
+    throw new ClientError(401, 'invalid information');
+  }
+  const sql = `
+    insert into "cardsAssigned"
+                ("userId",
+                 "cardId",
+                 "gameId")
+           values ($1, $2, $3)
+           returning *
+  `;
+
+  const params = [userId, cardId, gameId];
+  db.query(sql, params)
+    .then(result => {
+      const cardsAssigned = result.rows;
+      res.status(201).json(cardsAssigned);
+    })
+    .catch(err => next(err));
+
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
