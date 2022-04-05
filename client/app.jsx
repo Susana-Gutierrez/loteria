@@ -18,11 +18,13 @@ export default class App extends React.Component {
       email: '',
       username: '',
       isAuthorizing: true,
+      game: '',
       route: parseRoute(window.location.hash)
     };
     this.handleSignIn = this.handleSignIn.bind(this);
     this.handleSignOut = this.handleSignOut.bind(this);
     this.handleUserData = this.handleUserData.bind(this);
+    this.handleGame = this.handleGame.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +38,12 @@ export default class App extends React.Component {
     this.setState({ user, isAuthorizing: false });
   }
 
+  handleGame(game) {
+    this.setState({
+      game: game
+    });
+  }
+
   handleUserData(user) {
     this.setState({
       firstName: user.firstName,
@@ -43,7 +51,6 @@ export default class App extends React.Component {
       email: user.email,
       username: user.username
     });
-
   }
 
   handleSignIn(result) {
@@ -78,15 +85,21 @@ export default class App extends React.Component {
     if (route.path === 'instructions') {
       return <SecondBackground />;
     }
+    if (route.path === 'access-game') {
+      return <SecondBackground />;
+    }
+    if (route.path === 'game-menu') {
+      return <SecondBackground />;
+    }
     return <NotFound />;
   }
 
   render() {
 
     if (this.state.isAuthorizing) return null;
-    const { user, firstName, lastName, email, username, route } = this.state;
-    const { handleSignIn, handleSignOut, handleUserData } = this;
-    const contextValue = { user, firstName, lastName, email, username, route, handleSignIn, handleSignOut, handleUserData };
+    const { user, firstName, lastName, email, username, route, game } = this.state;
+    const { handleSignIn, handleSignOut, handleUserData, handleGame } = this;
+    const contextValue = { user, firstName, lastName, email, username, route, game, handleSignIn, handleSignOut, handleUserData, handleGame };
 
     return (
     <AppContext.Provider value={contextValue}>

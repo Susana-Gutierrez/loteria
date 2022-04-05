@@ -5,6 +5,8 @@ import Title from './title';
 import ProfileForm from '../pages/profile-form';
 import AppContext from '../lib/app-context';
 import Instructions from '../pages/instructions';
+import AccessGame from '../pages/access-game';
+import GameMenu from '../pages/game-menu';
 
 export default class SecondBackground extends React.Component {
 
@@ -21,6 +23,12 @@ export default class SecondBackground extends React.Component {
     }
     if (route.path === 'instructions') {
       return <Instructions />;
+    }
+    if (route.path === 'access-game') {
+      return <AccessGame />;
+    }
+    if (route.path === 'game-menu') {
+      return <GameMenu />;
     }
 
   }
