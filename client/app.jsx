@@ -91,6 +91,9 @@ export default class App extends React.Component {
     if (route.path === 'game-menu') {
       return <SecondBackground />;
     }
+    if (route.path === 'cards') {
+      return <SecondBackground />;
+    }
     return <NotFound />;
   }
 

@@ -7,6 +7,7 @@ import AppContext from '../lib/app-context';
 import Instructions from '../pages/instructions';
 import AccessGame from '../pages/access-game';
 import GameMenu from '../pages/game-menu';
+import Cards from './cards';
 
 export default class SecondBackground extends React.Component {
 
@@ -29,6 +30,9 @@ export default class SecondBackground extends React.Component {
     }
     if (route.path === 'game-menu') {
       return <GameMenu />;
+    }
+    if (route.path === 'cards') {
+      return <Cards />;
     }
 
   }

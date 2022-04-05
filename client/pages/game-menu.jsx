@@ -19,11 +19,19 @@ const styles = {
 
 export default class GameMenu extends React.Component {
 
+  handleClick(action) {
+
+    if (action === 'see-cards') {
+      window.location.hash = 'cards';
+    }
+
+  }
+
   getButtons() {
     const listButtons = buttons.map((button, index) => {
 
       return (
-        <button key={index} style={styles.button}>{button.name}</button>
+        <button key={index} style={styles.button} onClick={() => this.handleClick(button.action)}>{button.name}</button>
       );
     });
 

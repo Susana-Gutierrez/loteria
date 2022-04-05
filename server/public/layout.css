@@ -5,6 +5,13 @@
   text-align: center;
 }
 
+.card-container {
+  width: 100%;
+  padding-top: 1%;
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -27,6 +34,25 @@
   flex-basis: calc(100% / 3);
 }
 
+.column-forth {
+  flex-basis: calc(100% / 4);
+}
+
+.column-arrow {
+  flex-basis: 10%;
+  padding-top: 25%;
+}
+
+.column-card {
+  order: -1;
+  flex-basis: 100%;
+}
+
+.dots-row {
+  display: flex;
+  justify-content: center;
+}
+
 @media screen and (min-width: 768px) {
   .column {
     flex-basis: calc(100% / 2);
@@ -38,5 +64,16 @@
 
   .column-third {
     flex-basis: calc(100% / 3);
+  }
+
+  .column-card {
+    order: 0;
+    flex-basis: 80%;
+  }
+
+  .card-container {
+    padding-top: 2%;
+    padding-right: 23%;
+    padding-left: 23%;
   }
 }
