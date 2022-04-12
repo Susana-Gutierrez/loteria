@@ -106,6 +106,7 @@ export default class Cards extends React.Component {
 
     const { user } = this.context;
     const { game } = this.context;
+    const { handleCard } = this.context;
     const data = {
       userId: user.userId,
       cardId: this.state.cards[this.state.cardShown].cardId,
@@ -125,11 +126,19 @@ export default class Cards extends React.Component {
         .then(res => res.json())
         .then(result => {
           if (!result.error) {
+            handleCard(data.cardId);
             this.setState({ message: 'card  was seleted', messageClass: 'cards-message', isReadyDisabled: true });
           } else {
             this.setState({ message: 'an error has occurred', messageClass: 'cards-error-message' });
           }
         });
+    }
+
+    if (action === 'ready') {
+      if (this.state.isReadyDisabled === true) {
+        window.location.hash = 'game';
+      }
+
     }
 
   }
@@ -139,8 +148,8 @@ export default class Cards extends React.Component {
 
       let buttonClass = '';
 
-      if ((button.name === 'Select Card') && (this.state.isReadyDisabled)) {
-        buttonClass = 'cards-button';
+      if ((button.name === 'Ready') && (this.state.isReadyDisabled === false)) {
+        buttonClass = 'button-disabled';
       }
 
       return (

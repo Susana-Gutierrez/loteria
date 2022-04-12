@@ -19,15 +19,18 @@ export default class App extends React.Component {
       username: '',
       isAuthorizing: true,
       game: '',
+      cardId: '',
       route: parseRoute(window.location.hash)
     };
     this.handleSignIn = this.handleSignIn.bind(this);
     this.handleSignOut = this.handleSignOut.bind(this);
     this.handleUserData = this.handleUserData.bind(this);
     this.handleGame = this.handleGame.bind(this);
+    this.handleCard = this.handleCard.bind(this);
   }
 
   componentDidMount() {
+
     window.addEventListener('hashchange', () => {
       this.setState({
         route: parseRoute(window.location.hash)
@@ -36,6 +39,13 @@ export default class App extends React.Component {
     const token = window.localStorage.getItem('react-context-jwt');
     const user = token ? decodeToken(token) : null;
     this.setState({ user, isAuthorizing: false });
+
+  }
+
+  handleCard(card) {
+    this.setState({
+      cardId: card
+    });
   }
 
   handleGame(game) {
@@ -94,15 +104,18 @@ export default class App extends React.Component {
     if (route.path === 'cards') {
       return <SecondBackground />;
     }
+    if (route.path === 'game') {
+      return <Background />;
+    }
     return <NotFound />;
   }
 
   render() {
 
     if (this.state.isAuthorizing) return null;
-    const { user, firstName, lastName, email, username, route, game } = this.state;
-    const { handleSignIn, handleSignOut, handleUserData, handleGame } = this;
-    const contextValue = { user, firstName, lastName, email, username, route, game, handleSignIn, handleSignOut, handleUserData, handleGame };
+    const { user, firstName, lastName, email, username, route, game, cardId } = this.state;
+    const { handleSignIn, handleSignOut, handleUserData, handleGame, handleCard } = this;
+    const contextValue = { user, firstName, lastName, email, username, route, game, cardId, handleSignIn, handleSignOut, handleUserData, handleGame, handleCard };
 
     return (
     <AppContext.Provider value={contextValue}>

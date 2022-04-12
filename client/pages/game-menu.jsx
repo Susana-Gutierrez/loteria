@@ -2,8 +2,7 @@ import React from 'react';
 import Logo from '../components/logo';
 
 const buttons = [
-  { name: 'See Cards', action: 'see-cards' },
-  { name: 'Ready', action: 'ready' }
+  { name: 'See Cards', action: 'see-cards' }
 ];
 
 const styles = {
@@ -25,6 +24,9 @@ export default class GameMenu extends React.Component {
       window.location.hash = 'cards';
     }
 
+    if (action === 'ready') {
+      window.location.hash = 'game';
+    }
   }
 
   getButtons() {
@@ -51,7 +53,7 @@ export default class GameMenu extends React.Component {
         </div>
       </div>
       <div className="row">
-          <div className="game-menu-button-container">{buttons}</div>
+          <div>{buttons}</div>
       </div>
       </>
     );
