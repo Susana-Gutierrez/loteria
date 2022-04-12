@@ -1,20 +1,30 @@
 require('dotenv/config');
 const argon2 = require('argon2');
 const express = require('express');
+
 const jwt = require('jsonwebtoken');
 const db = require('./db');
 const ClientError = require('./client-error');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
+const randomImages = require('./random-images');
+const { clearInterval } = require('timers');
 
 const app = express();
-
+const http = require('http').createServer(app);
+const io = require('socket.io')(http, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST']
+  }
+});
 const jsonMiddleware = express.json();
 
 app.use(staticMiddleware);
 app.use(jsonMiddleware);
 
 app.get('/api/test', (req, res) => {
+  console.log('io: ', io);
   res.send('Server is working');
 });
 
@@ -234,7 +244,6 @@ app.get('/api/images', (req, res, next) => {
     join "imagesAssigned" using ("cardId")
     join "images" using ("imageId")
   `;
-  /* const params = [cardName]; */
   db.query(sql)
     .then(result => {
       const images = result.rows;
@@ -267,9 +276,86 @@ app.post('/api/cards', (req, res, next) => {
 
 });
 
+app.post('/api/game', (req, res, next) => {
+  const { cardId } = req.body;
+
+  if (!cardId) {
+    throw new ClientError(401, 'invalid information');
+  }
+
+  const sql = `
+  select "cards"."cardId",
+         "cards"."cardName",
+         "images"."imageId",
+         "images"."imageName",
+         "images"."imageUrl"
+         from "cards"
+         join "imagesAssigned" using ("cardId")
+         join "images" using ("imageId")
+         where "imagesAssigned"."cardId" = $1
+
+  `;
+  const params = [cardId];
+  db.query(sql, params)
+    .then(result => {
+      const card = result.rows;
+      res.status(201).json(card);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/game', (req, res, next) => {
+  const sql = `
+  select "imageId",
+         "imageName",
+         "imageUrl"
+   from "images"
+  `;
+  db.query(sql)
+    .then(result => {
+      const images = result.rows;
+      res.status(200).json(images);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
-app.listen(process.env.PORT, () => {
+http.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
+
+});
+
+/* let timer; */
+
+io.on('connection', socket => {
+  // eslint-disable-next-line no-console
+  console.log(`Server connected: ${socket.id}`);
+
+  socket.on('join', function (room) {
+    socket.join(room);
+    io.sockets.in(room).emit('connectedToRoom', 'you are in room');
+  });
+
+  socket.on('startGame', function (game) {
+
+    function roomImageHandler(game) {
+      const cardNumber = randomImages();
+      io.in(game).emit('imageId', cardNumber);
+    }
+
+    this.timer = setInterval(roomImageHandler, 2000, game);
+
+    socket.on('stopGetMessage', function (game) {
+      clearInterval(this.timer);
+    });
+
+  });
+
+  socket.on('disconnect', () => {
+    // eslint-disable-next-line no-console
+    console.log(`Server disconnect: ${socket.id}`);
+  });
+
 });
