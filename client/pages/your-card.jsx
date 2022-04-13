@@ -33,10 +33,13 @@ export default class YourCard extends React.Component {
       card: null,
       isLineButtonDisable: true,
       isLoteriaButtonDisabled: true,
-      isStartGameButtonDisabled: true
+      isStartGameButtonDisabled: true,
+      hidden: 'hidden',
+      selectedCard: []
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.handledSelectedImages = this.handledSelectedImages.bind(this);
 
   }
 
@@ -60,6 +63,12 @@ export default class YourCard extends React.Component {
       .then(result => {
         this.handleCard(result);
       });
+  }
+
+  handledSelectedImages(index) {
+
+    this.setState({ selectedCard: [...this.state.selectedCard, index] });
+
   }
 
   handleClick(action) {
@@ -131,11 +140,23 @@ export default class YourCard extends React.Component {
 
     if (this.state.card !== null) {
       const images = this.state.card;
+      let isHidden = 'hidden';
+
       const listImages = images.map((image, index) => {
+
+        const found = this.state.selectedCard.find(num => num === index);
+
+        if (found !== undefined) {
+          isHidden = '';
+        } else {
+          isHidden = 'hidden';
+        }
+
         return (
-            <div key={index} className="column-forth">
-              <img className="image-card" src={image.imageUrl} />
-            </div>
+          <div key={index} className="column-forth" >
+            <img style={{ zIndex: '1' }} className="image-card" src={image.imageUrl} onClick={() => this.handledSelectedImages(index)}/>
+            <i style={{ zIndex: '2' }} className={`fas fa-regular fa-check image-mark ${isHidden}`}></i>
+          </div>
         );
       });
       return listImages;
