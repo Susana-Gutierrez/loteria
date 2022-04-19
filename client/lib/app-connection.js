@@ -39,8 +39,20 @@ function gettingImagesId(img) {
   socket.on('imageId', imageId => img(imageId));
 }
 
+function enablingButtons(status) {
+  socket.on('enableButtons', buttons => status(buttons));
+}
+
 function stoppingGettingImages(game) {
   socket.emit('stopGetMessage', game.gameName);
 }
 
-export { AppConnection, startingGame, gettingImagesId, joiningRoom, stoppingGettingImages };
+function gettingFivePoints(game, username) {
+  socket.emit('fivePoints', game.gameName, username);
+}
+
+function fivePoints(areFivePointsGotten, username) {
+  socket.on('5points', (fivePoints, username) => areFivePointsGotten(fivePoints, username));
+}
+
+export { AppConnection, startingGame, gettingImagesId, joiningRoom, enablingButtons, stoppingGettingImages, gettingFivePoints, fivePoints };

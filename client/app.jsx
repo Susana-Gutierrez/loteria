@@ -20,6 +20,7 @@ export default class App extends React.Component {
       isAuthorizing: true,
       game: '',
       cardId: '',
+      line: [],
       route: parseRoute(window.location.hash)
     };
     this.handleSignIn = this.handleSignIn.bind(this);
@@ -27,6 +28,7 @@ export default class App extends React.Component {
     this.handleUserData = this.handleUserData.bind(this);
     this.handleGame = this.handleGame.bind(this);
     this.handleCard = this.handleCard.bind(this);
+    this.handleLine = this.handleLine.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +42,12 @@ export default class App extends React.Component {
     const user = token ? decodeToken(token) : null;
     this.setState({ user, isAuthorizing: false });
 
+  }
+
+  handleLine(line) {
+    if (this.state.line.length === 0) {
+      this.setState({ line: [...this.state.line, line] });
+    }
   }
 
   handleCard(card) {
@@ -113,9 +121,9 @@ export default class App extends React.Component {
   render() {
 
     if (this.state.isAuthorizing) return null;
-    const { user, firstName, lastName, email, username, route, game, cardId } = this.state;
-    const { handleSignIn, handleSignOut, handleUserData, handleGame, handleCard } = this;
-    const contextValue = { user, firstName, lastName, email, username, route, game, cardId, handleSignIn, handleSignOut, handleUserData, handleGame, handleCard };
+    const { user, firstName, lastName, email, username, route, game, cardId, line } = this.state;
+    const { handleSignIn, handleSignOut, handleUserData, handleGame, handleCard, handleLine } = this;
+    const contextValue = { user, firstName, lastName, email, username, route, game, cardId, line, handleSignIn, handleSignOut, handleUserData, handleGame, handleCard, handleLine };
 
     return (
     <AppContext.Provider value={contextValue}>
