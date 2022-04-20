@@ -319,6 +319,30 @@ app.get('/api/game', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/points', (req, res, next) => {
+  const { gameId, userId, points } = req.body;
+
+  if ((!gameId) || (!userId) || (!points)) {
+    throw new ClientError(401, 'invalid information');
+  }
+
+  const sql = `
+    insert into "points"
+                ("gameId",
+                "userId",
+                "points")
+          values ($1, $2, $3)
+          returning *
+  `;
+  const params = [gameId, userId, points];
+  db.query(sql, params)
+    .then(result => {
+      const points = result.rows;
+      res.status(201).json(points);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 http.listen(process.env.PORT, () => {
@@ -326,8 +350,6 @@ http.listen(process.env.PORT, () => {
   console.log(`express server listening on port ${process.env.PORT}`);
 
 });
-
-/* let timer; */
 
 io.on('connection', socket => {
   // eslint-disable-next-line no-console
@@ -339,6 +361,7 @@ io.on('connection', socket => {
   });
 
   socket.on('startGame', function (game) {
+    io.in(game).emit('enableButtons', false);
 
     function roomImageHandler(game) {
       const cardNumber = randomImages();
@@ -351,6 +374,10 @@ io.on('connection', socket => {
       clearInterval(this.timer);
     });
 
+  });
+
+  socket.on('fivePoints', function (game, username) {
+    io.in(game).emit('5points', true, username);
   });
 
   socket.on('disconnect', () => {

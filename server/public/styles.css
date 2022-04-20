@@ -430,6 +430,12 @@ body {
   font-size: 30px;
 }
 
+.five-points-message {
+  background-color: #ffee57;
+  color: #6c3434;
+  margin: 5%;
+}
+
 @media screen and (min-width: 500px) {
   .small-blue-background {
     display: flex;

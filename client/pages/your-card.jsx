@@ -1,6 +1,6 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
-import { startingGame, joiningRoom } from '../lib/app-connection';
+import { startingGame, joiningRoom, enablingButtons } from '../lib/app-connection';
 
 const gamebuttons = [
   { name: 'Line', action: 'line' },
@@ -29,13 +29,23 @@ export default class YourCard extends React.Component {
 
   constructor(props) {
     super(props);
+
+    enablingButtons(status => {
+      this.setState({
+        isLineButtonDisable: status,
+        isLoteriaButtonDisabled: status
+      });
+    });
+
     this.state = {
       card: null,
       isLineButtonDisable: true,
       isLoteriaButtonDisabled: true,
       isStartGameButtonDisabled: true,
       hidden: 'hidden',
-      selectedCard: []
+      selectedCardIndex: [],
+      selectedCardImageId: [],
+      lines: []
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -63,15 +73,21 @@ export default class YourCard extends React.Component {
       .then(result => {
         this.handleCard(result);
       });
+
   }
 
-  handledSelectedImages(index) {
+  handledSelectedImages(index, imageId) {
 
-    this.setState({ selectedCard: [...this.state.selectedCard, index] });
+    this.setState({
+      selectedCardIndex: [...this.state.selectedCardIndex, index],
+      selectedCardImageId: [...this.state.selectedCardImageId, imageId]
+    });
 
   }
 
   handleClick(action) {
+
+    const { handleLine } = this.context;
 
     if (action === 'ready') {
       const { game } = this.context;
@@ -84,18 +100,79 @@ export default class YourCard extends React.Component {
     if ((action === 'start-game') && (this.state.isStartGameButtonDisabled === false)) {
       const { game } = this.context;
 
-      this.setState({
-        isLineButtonDisable: false,
-        isLoteriaButtonDisabled: false
-      });
-
       startingGame(game);
+    }
+
+    if ((action === 'line') && (this.state.isLineButtonDisable === false)) {
+
+      const array1 = this.state.selectedCardImageId;
+
+      for (let i = 0; i < this.state.lines.length; i++) {
+        if (this.state.lines[i].every(elem => array1.includes(elem)) === true) {
+          handleLine(this.state.lines[i]);
+        }
+      }
+
     }
 
   }
 
   handleCard(card) {
     this.setState({ card: card });
+    this.handleLines();
+  }
+
+  handleLines() {
+
+    let tempArray = [];
+
+    let x = 0;
+    let y = 4;
+
+    while (x < this.state.card.length) {
+      for (let i = x; i < y; i++) {
+        tempArray.push(this.state.card[i].imageId);
+      }
+      this.setState({ lines: [...this.state.lines, tempArray] });
+      x = x + 4;
+      y = y + 4;
+      tempArray = [];
+    }
+
+    x = 0;
+    y = 0;
+
+    while (x < 4) {
+      for (let i = 0; i < 4; i++) {
+        tempArray.push(this.state.card[x + y].imageId);
+        y = y + 4;
+      }
+      this.setState({ lines: [...this.state.lines, tempArray] });
+      y = 0;
+      x++;
+      tempArray = [];
+    }
+
+    y = 0;
+
+    for (let i = 0; i < 4; i++) {
+      tempArray.push(this.state.card[y].imageId);
+      y = y + 5;
+    }
+
+    this.setState({ lines: [...this.state.lines, tempArray] });
+    tempArray = [];
+
+    y = 3;
+
+    for (let i = 0; i < 4; i++) {
+      tempArray.push(this.state.card[y].imageId);
+      y = y + 3;
+    }
+
+    this.setState({ lines: [...this.state.lines, tempArray] });
+    tempArray = [];
+
   }
 
   getActionButtons() {
@@ -144,7 +221,7 @@ export default class YourCard extends React.Component {
 
       const listImages = images.map((image, index) => {
 
-        const found = this.state.selectedCard.find(num => num === index);
+        const found = this.state.selectedCardIndex.find(num => num === index);
 
         if (found !== undefined) {
           isHidden = '';
@@ -154,7 +231,7 @@ export default class YourCard extends React.Component {
 
         return (
           <div key={index} className="column-forth" >
-            <img style={{ zIndex: '1' }} className="image-card" src={image.imageUrl} onClick={() => this.handledSelectedImages(index)}/>
+            <img style={{ zIndex: '1' }} className="image-card" src={image.imageUrl} onClick={() => this.handledSelectedImages(index, image.imageId)}/>
             <i style={{ zIndex: '2' }} className={`fas fa-regular fa-check image-mark ${isHidden}`}></i>
           </div>
         );
