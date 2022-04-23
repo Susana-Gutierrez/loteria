@@ -436,6 +436,13 @@ body {
   margin: 5%;
 }
 
+.loteria-modal-message {
+  padding-top: 5%;
+  padding-bottom: 5%;
+  color: green;
+  font-size: 15px;
+}
+
 @media screen and (min-width: 500px) {
   .small-blue-background {
     display: flex;
@@ -536,6 +543,10 @@ body {
     top: 30px;
     left: 30px;
     font-size: 60px;
+  }
+
+  .loteria-modal-message {
+    font-size: 27px;
   }
 }
 

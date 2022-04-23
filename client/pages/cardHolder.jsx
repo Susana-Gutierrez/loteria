@@ -1,5 +1,5 @@
 import React from 'react';
-import { gettingImagesId, stoppingGettingImages, gettingFivePoints, fivePoints } from '../lib/app-connection';
+import { gettingImagesId, stoppingGettingImages, gettingFivePoints, fivePoints, gettingLoteria, stoppingGame, cleaningLoteria } from '../lib/app-connection';
 import AppContext from '../lib/app-context';
 
 const cardHolder = 'images/image-holder.jpg';
@@ -38,6 +38,19 @@ export default class CardHolder extends React.Component {
 
     });
 
+    stoppingGame((stopGame, game) => {
+
+      if (stopGame === true) {
+        this.setState({
+          shownImagesCards: [],
+          line: [],
+          imageIndex: null,
+          isLineSelected: false,
+          hidden: 'hidden'
+        });
+      }
+    });
+
     this.state = {
       cards: null,
       imageIndex: null,
@@ -61,6 +74,41 @@ export default class CardHolder extends React.Component {
       });
   }
 
+  savingPoints(points) {
+
+    const { game, user } = this.context;
+
+    const data = {
+      gameId: game.gameId,
+      userId: user.userId,
+      points: points
+    };
+
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+    fetch('/api/points', req)
+      .then(res => res.json())
+      .then(result => {
+      });
+
+  }
+
+  handleWinningLoteria(loteria) {
+
+    const { game, user } = this.context;
+    const array1 = this.state.shownImagesCards;
+
+    if (loteria[0].every(elem => array1.includes(elem)) === true) {
+      this.savingPoints(10);
+      gettingLoteria(game, user.username);
+    }
+  }
+
   handlefivePointsMessage(line) {
 
     const { game, user } = this.context;
@@ -68,24 +116,7 @@ export default class CardHolder extends React.Component {
 
     if (line[0].every(elem => array1.includes(elem)) === true) {
 
-      const data = {
-        gameId: game.gameId,
-        userId: user.userId,
-        points: 5
-      };
-
-      const req = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      };
-      fetch('/api/points', req)
-        .then(res => res.json())
-        .then(result => {
-        });
-
+      this.savingPoints(5);
       gettingFivePoints(game, user.username);
     }
   }
@@ -111,10 +142,14 @@ export default class CardHolder extends React.Component {
   renderPage() {
 
     const imageUrl = this.handleImage();
-    const { line } = this.context;
+    const { line, loteria } = this.context;
 
     if ((line.length !== 0) && (this.state.isLineSelected === false)) {
       this.handlefivePointsMessage(line);
+    }
+
+    if (loteria.length !== 0) {
+      this.handleWinningLoteria(loteria);
     }
 
     return (

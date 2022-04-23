@@ -56,7 +56,11 @@ export default class Modal extends React.Component {
       this.setState({ isGameConfirmed: !this.state.isGameConfirmed });
       window.location.hash = 'main-menu';
       closeModal();
+    }
 
+    if ((action === 'loteria-confirmation') || (action === 'lost-loteria-confirmation')) {
+      closeModal();
+      window.location.hash = 'game';
     }
 
   }
@@ -76,6 +80,8 @@ export default class Modal extends React.Component {
 
     if (value === 'create-game') {
       modalMessage = <div className="modal-message">{message} <CreateGame value={this.state.isGameConfirmed}/></div>;
+    } else if (value === 'loteria') {
+      modalMessage = <div className="loteria-modal-message">{message} </div>;
     } else {
       modalMessage = <div className="modal-message">{message} </div>;
     }
@@ -91,6 +97,20 @@ export default class Modal extends React.Component {
       </div>
     );
 
+  }
+
+  handleLostLoteria(value) {
+    const message = 'Sorry... ' +
+                    'You lost Loteria...';
+    const button = [{ name: 'OK', action: 'lost-loteria-confirmation' }];
+    return (this.handleModal(message, button, value));
+  }
+
+  handleLoteria(value) {
+    const message = 'Congratulations!!!   ' +
+                    'You won LOTERIA!!!';
+    const button = [{ name: 'OK', action: 'loteria-confirmation' }];
+    return (this.handleModal(message, button, value));
   }
 
   handleCreateGameConfirmation(value) {
@@ -149,6 +169,14 @@ export default class Modal extends React.Component {
 
     if (value === 'create-game') {
       return this.handleCreateGameConfirmation(value);
+    }
+
+    if (value === 'loteria') {
+      return this.handleLoteria(value);
+    }
+
+    if (value === 'lost-loteria') {
+      return this.handleLostLoteria(value);
     }
 
   }

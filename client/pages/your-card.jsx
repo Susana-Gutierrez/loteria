@@ -1,6 +1,8 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
-import { startingGame, joiningRoom, enablingButtons } from '../lib/app-connection';
+import { startingGame, joiningRoom, enablingButtons, tenPoints, stoppingGettingImages } from '../lib/app-connection';
+import Modal from '../components/modal';
+import Overlay from '../components/overlay';
 
 const gamebuttons = [
   { name: 'Line', action: 'line' },
@@ -37,6 +39,25 @@ export default class YourCard extends React.Component {
       });
     });
 
+    tenPoints((tenPoints, username) => {
+
+      const { user, game } = this.context;
+
+      if (username === user.username) {
+        this.setState({ modalValue: 'loteria' });
+      } else {
+        this.setState({ modalValue: 'lost-loteria' });
+      }
+
+      this.setState({
+        overlayStatus: '',
+        modalStatus: ''
+      });
+
+      stoppingGettingImages(game);
+
+    });
+
     this.state = {
       card: null,
       isLineButtonDisable: true,
@@ -45,11 +66,15 @@ export default class YourCard extends React.Component {
       hidden: 'hidden',
       selectedCardIndex: [],
       selectedCardImageId: [],
-      lines: []
+      lines: [],
+      overlayStatus: 'hidden',
+      modalStatus: 'hidden',
+      modalValue: ''
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handledSelectedImages = this.handledSelectedImages.bind(this);
+    this.closeModal = this.closeModal.bind(this);
 
   }
 
@@ -76,6 +101,34 @@ export default class YourCard extends React.Component {
 
   }
 
+  cleaningCard() {
+
+    const { cleanLine, cleanLoteria } = this.context;
+
+    this.setState({
+      isLineButtonDisable: true,
+      isLoteriaButtonDisabled: true,
+      isStartGameButtonDisabled: true,
+      selectedCardIndex: [],
+      selectedCardImageId: []
+    });
+
+    cleanLine();
+    cleanLoteria();
+
+  }
+
+  closeModal() {
+
+    this.setState({
+      overlayStatus: 'hidden',
+      modalStatus: 'hidden'
+    });
+
+    this.cleaningCard();
+
+  }
+
   handledSelectedImages(index, imageId) {
 
     this.setState({
@@ -87,7 +140,7 @@ export default class YourCard extends React.Component {
 
   handleClick(action) {
 
-    const { handleLine } = this.context;
+    const { handleLine, handleLoteria } = this.context;
 
     if (action === 'ready') {
       const { game } = this.context;
@@ -99,7 +152,6 @@ export default class YourCard extends React.Component {
 
     if ((action === 'start-game') && (this.state.isStartGameButtonDisabled === false)) {
       const { game } = this.context;
-
       startingGame(game);
     }
 
@@ -115,6 +167,9 @@ export default class YourCard extends React.Component {
 
     }
 
+    if ((action === 'loteria') && (this.state.selectedCardImageId.length === 16)) {
+      handleLoteria(this.state.selectedCardImageId);
+    }
   }
 
   handleCard(card) {
@@ -243,6 +298,9 @@ export default class YourCard extends React.Component {
 
   buildingCard() {
 
+    const { closeModal } = this;
+    const action = { closeModal };
+
     const cardImages = this.gettingImages();
     const gameButtons = this.getGameButtons();
     const actionButtons = this.getActionButtons();
@@ -260,7 +318,8 @@ export default class YourCard extends React.Component {
        <div>
          {actionButtons}
        </div>
-
+       <Overlay className={this.state.overlayStatus} />
+        <Modal className={this.state.modalStatus} action={action} value={this.state.modalValue} />
       </>
     );
 
