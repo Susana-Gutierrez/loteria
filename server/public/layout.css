@@ -29,6 +29,10 @@
   flex-basis: 100%;
 }
 
+.players-column-half {
+  flex-basis: calc(100% / 2);
+}
+
 .column-new-account {
   flex-basis: calc(100% / 3);
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { gettingImagesId, stoppingGettingImages, gettingFivePoints, fivePoints, gettingLoteria, stoppingGame, cleaningLoteria } from '../lib/app-connection';
+import { gettingImagesId, stoppingGettingImages, receivingUpdateFivePoints, updatingFivePoints, gettingLoteria, stoppingGame, connectedUsers } from '../lib/app-connection';
 import AppContext from '../lib/app-context';
 
 const cardHolder = 'images/image-holder.jpg';
@@ -24,20 +24,6 @@ export default class CardHolder extends React.Component {
 
     });
 
-    fivePoints((fivePoints, username) => {
-
-      const { user } = this.context;
-
-      this.setState({ isLineSelected: fivePoints });
-
-      if (username === user.username) {
-        this.setState({
-          hidden: ''
-        });
-      }
-
-    });
-
     stoppingGame((stopGame, game) => {
 
       if (stopGame === true) {
@@ -46,9 +32,52 @@ export default class CardHolder extends React.Component {
           line: [],
           imageIndex: null,
           isLineSelected: false,
+          isLoteriaWon: false,
           hidden: 'hidden'
         });
       }
+    });
+
+    connectedUsers(users => {
+
+      for (let i = 0; i < users.length; i++) {
+        if (this.state.connectedUsers.includes(users[i]) === false) {
+          this.handleGettingUsersPoints(users[i]);
+
+          this.setState({
+            connectedUsers: [...this.state.connectedUsers, users[i]]
+
+          });
+        }
+      }
+
+    });
+
+    receivingUpdateFivePoints((username, points) => {
+
+      const { user } = this.context;
+
+      if (points === 5) {
+        this.setState({ isLineSelected: true });
+
+        if (username === user.username) {
+          this.setState({
+            hidden: ''
+          });
+        }
+
+      }
+
+      if (points === 10) {
+        this.setState({ isLoteriaWon: true });
+      }
+
+      this.setState({
+        usersPoints: this.state.usersPoints.map((userPoints, index) =>
+          userPoints.username === username ? { ...userPoints, totalPoints: Number(userPoints.totalPoints) + points } : userPoints
+        )
+      });
+
     });
 
     this.state = {
@@ -58,7 +87,10 @@ export default class CardHolder extends React.Component {
       game: '',
       line: [],
       isLineSelected: false,
-      hidden: 'hidden'
+      hidden: 'hidden',
+      connectedUsers: [],
+      usersPoints: [],
+      isLoteriaWon: false
     };
 
     this.handleImage = this.handleImage.bind(this);
@@ -74,10 +106,54 @@ export default class CardHolder extends React.Component {
       });
   }
 
+  handleGettingUsersPoints(username) {
+    const { game } = this.context;
+    const data = {
+      gameId: game.gameId,
+      username: username
+    };
+
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+
+    fetch('/api/userPoints', req)
+      .then(res => res.json())
+      .then(result => {
+        if (!result.error) {
+          this.setState({ usersPoints: [...this.state.usersPoints, result] });
+          return result;
+        } else {
+          this.handleErrorMessage(result.error);
+        }
+      });
+  }
+
+  handleUsersPoints() {
+    const usersPoints = this.state.usersPoints;
+    const users = usersPoints.map((user, index) => {
+
+      return (
+        <div key={index} className="row">
+          <div className="players-column-half user-points">
+            {user.username}
+          </div>
+          <div className="players-column-half user-points">
+            {user.totalPoints}
+          </div>
+        </div>
+      );
+    });
+
+    return users;
+  }
+
   savingPoints(points) {
-
     const { game, user } = this.context;
-
     const data = {
       gameId: game.gameId,
       userId: user.userId,
@@ -96,6 +172,8 @@ export default class CardHolder extends React.Component {
       .then(result => {
       });
 
+    updatingFivePoints(game, user.username, points);
+
   }
 
   handleWinningLoteria(loteria) {
@@ -111,13 +189,10 @@ export default class CardHolder extends React.Component {
 
   handlefivePointsMessage(line) {
 
-    const { game, user } = this.context;
     const array1 = this.state.shownImagesCards;
 
     if (line[0].every(elem => array1.includes(elem)) === true) {
-
       this.savingPoints(5);
-      gettingFivePoints(game, user.username);
     }
   }
 
@@ -148,7 +223,7 @@ export default class CardHolder extends React.Component {
       this.handlefivePointsMessage(line);
     }
 
-    if (loteria.length !== 0) {
+    if ((loteria.length !== 0) && (this.state.isLoteriaWon === false)) {
       this.handleWinningLoteria(loteria);
     }
 
@@ -163,6 +238,15 @@ export default class CardHolder extends React.Component {
           <div className="column-half">
             <div className="score-container">
               <div className="players">
+                <div className="row">
+                  <div className="players-column-half">
+                    PLAYERS
+                  </div>
+                  <div className="players-column-half">
+                    POINTS
+                  </div>
+                </div>
+                {this.handleUsersPoints()}
               </div>
             </div>
           </div>

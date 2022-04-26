@@ -20,6 +20,8 @@ const io = require('socket.io')(http, {
 });
 const jsonMiddleware = express.json();
 
+const users = [];
+
 app.use(staticMiddleware);
 app.use(jsonMiddleware);
 
@@ -342,6 +344,40 @@ app.post('/api/points', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/userPoints', (req, res, next) => {
+  const { gameId, username } = req.body;
+  if ((!gameId) && (!username)) {
+    throw new ClientError(401, 'invalid information');
+  }
+
+  const sql = `
+    select "users"."username",
+           sum("points"."points") as "totalPoints"
+           from "users"
+           join "points" using ("userId")
+           join "games" using ("gameId")
+           where "users"."username" = $1
+           and "games"."gameId" = $2
+           group by "users"."username"
+  `;
+  const params = [username, gameId];
+  db.query(sql, params)
+    .then(result => {
+      const [userPoints] = result.rows;
+      if (userPoints === undefined) {
+        const userPoints = {
+          username: username,
+          totalPoints: 0
+        };
+
+        res.status(201).json(userPoints);
+      } else {
+        res.status(201).json(userPoints);
+      }
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 http.listen(process.env.PORT, () => {
@@ -354,9 +390,21 @@ io.on('connection', socket => {
   // eslint-disable-next-line no-console
   console.log(`Server connected: ${socket.id}`);
 
-  socket.on('join', function (room) {
+  socket.on('join', function (room, username) {
     socket.join(room);
-    io.sockets.in(room).emit('connectedToRoom', 'you are in room');
+    io.sockets.in(room).emit('connectedToRoom', username);
+
+    const connectedUsers = [];
+    const user = { room, username };
+    users.push(user);
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].room === room) {
+        connectedUsers.push(users[i].username);
+      }
+    }
+
+    io.sockets.in(room).emit('usersInRoom', connectedUsers);
+
   });
 
   socket.on('startGame', function (game) {
@@ -376,8 +424,8 @@ io.on('connection', socket => {
 
   });
 
-  socket.on('fivePoints', function (game, username) {
-    io.in(game).emit('5points', true, username);
+  socket.on('updating5Points', function (game, username, points) {
+    io.in(game).emit('receivingUpdate5Points', username, points);
   });
 
   socket.on('gettingLoteria', function (game, username) {

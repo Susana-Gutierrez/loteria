@@ -20,15 +20,16 @@ function AppConnection(action) {
 
 }
 
-function joiningRoom(game) {
-
-  socket.emit('join', game.gameName);
-
-  socket.on('connectedToRoom', message =>
+function joiningRoom(game, username) {
+  socket.emit('join', game.gameName, username);
+  socket.on('connectedToRoom', username =>
   // eslint-disable-next-line no-console
-    console.log('message: ', message)
+    console.log('connectedToRoom')
   );
+}
 
+function connectedUsers(users) {
+  socket.on('usersInRoom', users);
 }
 
 function startingGame(game) {
@@ -47,12 +48,12 @@ function stoppingGettingImages(game) {
   socket.emit('stopGetMessage', game.gameName);
 }
 
-function gettingFivePoints(game, username) {
-  socket.emit('fivePoints', game.gameName, username);
+function updatingFivePoints(game, username, points) {
+  socket.emit('updating5Points', game.gameName, username, points);
 }
 
-function fivePoints(areFivePointsGotten, username) {
-  socket.on('5points', (fivePoints, username) => areFivePointsGotten(fivePoints, username));
+function receivingUpdateFivePoints(receivingFivePointsUpdate, username, points) {
+  socket.on('receivingUpdate5Points', (username, points) => receivingFivePointsUpdate(username, points));
 }
 
 function gettingLoteria(game, username) {
@@ -67,4 +68,7 @@ function stoppingGame(isGameStopped, game) {
   socket.on('stopGame', (stopGame, game) => isGameStopped(stopGame, game));
 }
 
-export { AppConnection, startingGame, gettingImagesId, joiningRoom, enablingButtons, stoppingGettingImages, gettingFivePoints, fivePoints, gettingLoteria, tenPoints, stoppingGame };
+export {
+  AppConnection, startingGame, gettingImagesId, joiningRoom, connectedUsers, enablingButtons,
+  stoppingGettingImages, updatingFivePoints, receivingUpdateFivePoints, gettingLoteria, tenPoints, stoppingGame
+};
