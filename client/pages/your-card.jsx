@@ -143,10 +143,10 @@ export default class YourCard extends React.Component {
     const { handleLine, handleLoteria } = this.context;
 
     if (action === 'ready') {
-      const { game } = this.context;
+      const { game, user } = this.context;
 
       this.setState({ isStartGameButtonDisabled: false });
-      joiningRoom(game);
+      joiningRoom(game, user.username);
 
     }
 
