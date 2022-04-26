@@ -24,7 +24,6 @@ app.use(staticMiddleware);
 app.use(jsonMiddleware);
 
 app.get('/api/test', (req, res) => {
-  console.log('io: ', io);
   res.send('Server is working');
 });
 
@@ -372,12 +371,17 @@ io.on('connection', socket => {
 
     socket.on('stopGetMessage', function (game) {
       clearInterval(this.timer);
+      io.in(game).emit('stopGame', true, game);
     });
 
   });
 
   socket.on('fivePoints', function (game, username) {
     io.in(game).emit('5points', true, username);
+  });
+
+  socket.on('gettingLoteria', function (game, username) {
+    io.in(game).emit('10points', true, username);
   });
 
   socket.on('disconnect', () => {

@@ -55,4 +55,16 @@ function fivePoints(areFivePointsGotten, username) {
   socket.on('5points', (fivePoints, username) => areFivePointsGotten(fivePoints, username));
 }
 
-export { AppConnection, startingGame, gettingImagesId, joiningRoom, enablingButtons, stoppingGettingImages, gettingFivePoints, fivePoints };
+function gettingLoteria(game, username) {
+  socket.emit('gettingLoteria', game.gameName, username);
+}
+
+function tenPoints(areTenPointsGotten, username) {
+  socket.on('10points', (tenPoints, username) => areTenPointsGotten(tenPoints, username));
+}
+
+function stoppingGame(isGameStopped, game) {
+  socket.on('stopGame', (stopGame, game) => isGameStopped(stopGame, game));
+}
+
+export { AppConnection, startingGame, gettingImagesId, joiningRoom, enablingButtons, stoppingGettingImages, gettingFivePoints, fivePoints, gettingLoteria, tenPoints, stoppingGame };

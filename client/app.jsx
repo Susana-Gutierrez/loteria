@@ -21,6 +21,7 @@ export default class App extends React.Component {
       game: '',
       cardId: '',
       line: [],
+      loteria: [],
       route: parseRoute(window.location.hash)
     };
     this.handleSignIn = this.handleSignIn.bind(this);
@@ -29,6 +30,9 @@ export default class App extends React.Component {
     this.handleGame = this.handleGame.bind(this);
     this.handleCard = this.handleCard.bind(this);
     this.handleLine = this.handleLine.bind(this);
+    this.handleLoteria = this.handleLoteria.bind(this);
+    this.cleanLine = this.cleanLine.bind(this);
+    this.cleanLoteria = this.cleanLoteria.bind(this);
   }
 
   componentDidMount() {
@@ -41,7 +45,20 @@ export default class App extends React.Component {
     const token = window.localStorage.getItem('react-context-jwt');
     const user = token ? decodeToken(token) : null;
     this.setState({ user, isAuthorizing: false });
+  }
 
+  cleanLine() {
+    this.setState({ line: [] });
+  }
+
+  cleanLoteria() {
+    this.setState({ loteria: [] });
+  }
+
+  handleLoteria(loteria) {
+    if (this.state.loteria.length === 0) {
+      this.setState({ loteria: [...this.state.loteria, loteria] });
+    }
   }
 
   handleLine(line) {
@@ -121,9 +138,9 @@ export default class App extends React.Component {
   render() {
 
     if (this.state.isAuthorizing) return null;
-    const { user, firstName, lastName, email, username, route, game, cardId, line } = this.state;
-    const { handleSignIn, handleSignOut, handleUserData, handleGame, handleCard, handleLine } = this;
-    const contextValue = { user, firstName, lastName, email, username, route, game, cardId, line, handleSignIn, handleSignOut, handleUserData, handleGame, handleCard, handleLine };
+    const { user, firstName, lastName, email, username, route, game, cardId, line, loteria } = this.state;
+    const { handleSignIn, handleSignOut, handleUserData, handleGame, handleCard, handleLine, handleLoteria, cleanLine, cleanLoteria } = this;
+    const contextValue = { user, firstName, lastName, email, username, route, game, cardId, line, loteria, handleSignIn, handleSignOut, handleUserData, handleGame, handleCard, handleLine, handleLoteria, cleanLine, cleanLoteria };
 
     return (
     <AppContext.Provider value={contextValue}>
