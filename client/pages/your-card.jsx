@@ -101,6 +101,12 @@ export default class YourCard extends React.Component {
 
   }
 
+  componentWillUnmount() {
+    this.setState = (state, callback) => {
+
+    };
+  }
+
   cleaningCard() {
 
     const { cleanLine, cleanLoteria } = this.context;
@@ -170,6 +176,11 @@ export default class YourCard extends React.Component {
     if ((action === 'loteria') && (this.state.selectedCardImageId.length === 16)) {
       handleLoteria(this.state.selectedCardImageId);
     }
+
+    if (action === 'select-new-card') {
+      window.location.hash = 'cards';
+    }
+
   }
 
   handleCard(card) {
@@ -285,7 +296,7 @@ export default class YourCard extends React.Component {
         }
 
         return (
-          <div key={index} className="column-forth" >
+          <div key={index} className="column-forth image-card-container" >
             <img style={{ zIndex: '1' }} className="image-card" src={image.imageUrl} onClick={() => this.handledSelectedImages(index, image.imageId)}/>
             <i style={{ zIndex: '2' }} className={`fas fa-regular fa-check image-mark ${isHidden}`}></i>
           </div>
@@ -306,6 +317,7 @@ export default class YourCard extends React.Component {
     const actionButtons = this.getActionButtons();
 
     return (
+
        <>
         <div className="game-card-container">
           <div className="row card-row">

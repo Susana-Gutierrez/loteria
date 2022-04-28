@@ -21,6 +21,7 @@ const io = require('socket.io')(http, {
 const jsonMiddleware = express.json();
 
 const users = [];
+const readyUsers = [];
 
 app.use(staticMiddleware);
 app.use(jsonMiddleware);
@@ -394,9 +395,10 @@ io.on('connection', socket => {
     socket.join(room);
     io.sockets.in(room).emit('connectedToRoom', username);
 
-    const connectedUsers = [];
     const user = { room, username };
+    const connectedUsers = [];
     users.push(user);
+
     for (let i = 0; i < users.length; i++) {
       if (users[i].room === room) {
         connectedUsers.push(users[i].username);
@@ -404,6 +406,17 @@ io.on('connection', socket => {
     }
 
     io.sockets.in(room).emit('usersInRoom', connectedUsers);
+
+    const roomReadyUsers = [];
+    readyUsers.push(user);
+
+    for (let i = 0; i < readyUsers.length; i++) {
+      if (readyUsers[i].room === room) {
+        roomReadyUsers.push(readyUsers[i].username);
+      }
+    }
+
+    io.in(room).emit('ready', roomReadyUsers);
 
   });
 
@@ -420,12 +433,17 @@ io.on('connection', socket => {
     socket.on('stopGetMessage', function (game) {
       clearInterval(this.timer);
       io.in(game).emit('stopGame', true, game);
+      for (let i = readyUsers.length - 1; i >= 0; i--) {
+        if (readyUsers[i].room === game) {
+          readyUsers.splice(i, 1);
+        }
+      }
     });
 
   });
 
-  socket.on('updating5Points', function (game, username, points) {
-    io.in(game).emit('receivingUpdate5Points', username, points);
+  socket.on('updatingPoints', function (game, username, points) {
+    io.in(game).emit('receivingUpdatePoints', username, points);
   });
 
   socket.on('gettingLoteria', function (game, username) {
