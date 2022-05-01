@@ -107,23 +107,23 @@ body {
 
 .x-mark {
   font-weight: bolder;
-  color: red;
+  color: #f00;
 }
 
 .check-mark {
   font-weight: bolder;
-  color: green;
+  color: #008000;
 }
 
 .sign-up-error-message {
   text-align: left;
-  color: red;
+  color: #f00;
 }
 
 .sign-in-error-message {
   padding: 5%;
   text-align: center;
-  color: red;
+  color: #f00;
 }
 
 .new-account-logo {
@@ -277,7 +277,7 @@ body {
 
 .profile-error-message {
   text-align: center;
-  color: red;
+  color: #f00;
 }
 
 .ol-instructions {
@@ -384,12 +384,12 @@ body {
 }
 
 .cards-message {
-  color: green;
+  color: #008000;
   text-align: center;
 }
 
 .cards-error-message {
-  color: red;
+  color: #f00;
   text-align: center;
 }
 
@@ -424,7 +424,7 @@ body {
 }
 
 .button-disabled {
-  color: gray;
+  color: #808080;
   cursor: none;
 }
 
@@ -445,16 +445,16 @@ body {
 .loteria-modal-message {
   padding-top: 5%;
   padding-bottom: 5%;
-  color: green;
+  color: #008000;
   font-size: 15px;
 }
 
 .user-points-green {
-  color: green;
+  color: #008000;
 }
 
 .user-points-gray {
-  color: gray;
+  color: #808080;
 }
 
 @media screen and (min-width: 500px) {
@@ -471,7 +471,7 @@ body {
   }
 
   .home-img-logo {
-    width: 100%;
+    width: 75%;
   }
 
   .main-menu-img-logo {

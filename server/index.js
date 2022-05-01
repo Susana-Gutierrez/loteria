@@ -8,7 +8,7 @@ const ClientError = require('./client-error');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const randomImages = require('./random-images');
-const { clearInterval } = require('timers');
+const { clearTimeout } = require('timers');
 
 const app = express();
 const http = require('http').createServer(app);
@@ -22,6 +22,7 @@ const jsonMiddleware = express.json();
 
 const users = [];
 const readyUsers = [];
+const gamesCards = {};
 
 app.use(staticMiddleware);
 app.use(jsonMiddleware);
@@ -391,11 +392,13 @@ io.on('connection', socket => {
   // eslint-disable-next-line no-console
   console.log(`Server connected: ${socket.id}`);
 
+  const id = socket.id;
+
   socket.on('join', function (room, username) {
     socket.join(room);
     io.sockets.in(room).emit('connectedToRoom', username);
 
-    const user = { room, username };
+    const user = { room, username, id };
     const connectedUsers = [];
     users.push(user);
 
@@ -421,17 +424,37 @@ io.on('connection', socket => {
   });
 
   socket.on('startGame', function (game) {
+
     io.in(game).emit('enableButtons', false);
 
-    function roomImageHandler(game) {
-      const cardNumber = randomImages();
-      io.in(game).emit('imageId', cardNumber);
+    if ((!gamesCards[game]) || (gamesCards[game].length === 52)) {
+
+      gamesCards[game] = [];
+
+      this.timer = setInterval(game => {
+        const cardNumber = randomImages();
+        const found = gamesCards[game].find(num => num === cardNumber);
+
+        if (found === undefined) {
+          gamesCards[game].push(cardNumber);
+          io.in(game).emit('imageId', cardNumber);
+        }
+
+        if (gamesCards[game].length === 52) {
+          clearInterval(this.timer);
+          const endedTime = setTimeout(() => {
+            io.in(game).emit('timeEnded');
+            clearTimeout(endedTime);
+          }, 10000);
+        }
+      }, 2000, game);
+
     }
 
-    this.timer = setInterval(roomImageHandler, 2000, game);
-
     socket.on('stopGetMessage', function (game) {
+
       clearInterval(this.timer);
+
       io.in(game).emit('stopGame', true, game);
       for (let i = readyUsers.length - 1; i >= 0; i--) {
         if (readyUsers[i].room === game) {
@@ -439,7 +462,6 @@ io.on('connection', socket => {
         }
       }
     });
-
   });
 
   socket.on('updatingPoints', function (game, username, points) {
@@ -450,7 +472,42 @@ io.on('connection', socket => {
     io.in(game).emit('10points', true, username);
   });
 
+  socket.on('endGame', function (game, user) {
+
+    const disconnectedUser = { room: game, username: user };
+
+    for (let i = users.length - 1; i >= 0; i--) {
+      if ((users[i].room === disconnectedUser.room) && (users[i].username === disconnectedUser.username)) {
+        users.splice(i, 1);
+      }
+    }
+
+    for (let i = readyUsers.length - 1; i >= 0; i--) {
+      if ((readyUsers[i].room === game) && (readyUsers[i].username === user)) {
+        readyUsers.splice(i, 1);
+      }
+    }
+
+    io.in(socket.id).socketsLeave(game);
+    socket.emit('disconnectedFromGame', game);
+
+  });
+
   socket.on('disconnect', () => {
+
+    for (let i = users.length - 1; i >= 0; i--) {
+      if (users[i].id === socket.id) {
+        /* username = users[i].username; */
+        users.splice(i, 1);
+      }
+    }
+
+    for (let i = readyUsers.length - 1; i >= 0; i--) {
+      if (readyUsers[i].id === socket.id) {
+        readyUsers.splice(i, 1);
+      }
+    }
+
     // eslint-disable-next-line no-console
     console.log(`Server disconnect: ${socket.id}`);
   });

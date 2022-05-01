@@ -72,4 +72,24 @@ function stoppingGame(isGameStopped, game) {
   socket.on('stopGame', (stopGame, game) => isGameStopped(stopGame, game));
 }
 
-export { AppConnection, startingGame, gettingImagesId, joiningRoom, connectedUsers, usersReady, enablingButtons, stoppingGettingImages, updatingPoints, receivingUpdatePoints, gettingLoteria, tenPoints, stoppingGame };
+function endGame(game, user) {
+  socket.emit('endGame', game.gameName, user);
+}
+
+function disconnectedFromGame(gameDisconnected, game) {
+  socket.on('disconnectedFromGame', game => gameDisconnected(disconnectedFromGame, game));
+}
+
+function signOut() {
+  socket.on('disconnect');
+}
+
+function timeEnded(wasTimeEnded) {
+  socket.on('timeEnded', () => wasTimeEnded());
+}
+
+export {
+  AppConnection, startingGame, gettingImagesId, joiningRoom, connectedUsers, usersReady,
+  enablingButtons, stoppingGettingImages, updatingPoints, receivingUpdatePoints, gettingLoteria, tenPoints, stoppingGame, endGame, disconnectedFromGame, signOut,
+  timeEnded
+};

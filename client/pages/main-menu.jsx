@@ -78,6 +78,15 @@ export default class MainMenu extends React.Component {
           window.location.hash = 'profile-form';
         });
     }
+
+    if (event === 'Sign-Out') {
+      this.setState({
+        overlayStatus: '',
+        modalStatus: '',
+        modalValue: 'sign-out'
+      });
+    }
+
   }
 
   getButton() {
