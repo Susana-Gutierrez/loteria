@@ -1,8 +1,9 @@
 import React from 'react';
-import { gettingImagesId, stoppingGettingImages, receivingUpdatePoints, updatingPoints, gettingLoteria, stoppingGame, connectedUsers, usersReady } from '../lib/app-connection';
+import { gettingImagesId, receivingUpdatePoints, updatingPoints, gettingLoteria, stoppingGame, connectedUsers, usersReady, timeEnded } from '../lib/app-connection';
 import AppContext from '../lib/app-context';
 
 const cardHolder = 'images/image-holder.jpg';
+/* let gameTimeOut; */
 
 export default class CardHolder extends React.Component {
 
@@ -18,9 +19,18 @@ export default class CardHolder extends React.Component {
         });
       }
 
-      if (this.state.shownImagesCards.length === 52) {
-        stoppingGettingImages(this.state.game);
-      }
+    });
+
+    timeEnded(() => {
+      this.setState({
+        shownImagesCards: [],
+        line: [],
+        imageIndex: null,
+        isLineSelected: false,
+        isLoteriaWon: false,
+        hidden: 'hidden',
+        userReady: []
+      });
 
     });
 
@@ -37,6 +47,7 @@ export default class CardHolder extends React.Component {
           userReady: []
         });
       }
+
     });
 
     connectedUsers(users => {
@@ -68,7 +79,11 @@ export default class CardHolder extends React.Component {
 
     receivingUpdatePoints((username, points) => {
 
-      const { user } = this.context;
+      const { user, cleanLine } = this.context;
+
+      if (points === 0) {
+        cleanLine();
+      }
 
       if (points === 5) {
         this.setState({ isLineSelected: true });
@@ -104,7 +119,10 @@ export default class CardHolder extends React.Component {
       connectedUsers: [],
       usersPoints: [],
       isLoteriaWon: false,
-      userReady: []
+      userReady: [],
+      overlayStatus: 'hidden',
+      modalStatus: 'hidden',
+      modalValue: ''
     };
 
     this.handleImage = this.handleImage.bind(this);
@@ -189,17 +207,21 @@ export default class CardHolder extends React.Component {
       points: points
     };
 
-    const req = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    };
-    fetch('/api/points', req)
-      .then(res => res.json())
-      .then(result => {
-      });
+    if (points !== 0) {
+
+      const req = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      };
+      fetch('/api/points', req)
+        .then(res => res.json())
+        .then(result => {
+        });
+
+    }
 
     updatingPoints(game, user.username, points);
 
@@ -222,7 +244,10 @@ export default class CardHolder extends React.Component {
 
     if (line[0].every(elem => array1.includes(elem)) === true) {
       this.savingPoints(5);
+    } else {
+      this.savingPoints(0);
     }
+
   }
 
   handleCard(cards) {

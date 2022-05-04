@@ -7,10 +7,26 @@ import Background from './components/background';
 import SecondBackground from './components/secondBackground';
 import { parseRoute } from './lib';
 import ThirdBackground from './components/thirdBackground';
+import { endGame, disconnectedFromGame, signOut } from './lib/app-connection';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+
+    disconnectedFromGame(game => {
+      if (game !== null) {
+        this.setState({
+          game: '',
+          cardId: '',
+          line: [],
+          loteria: []
+        });
+
+        window.location.hash = 'main-menu';
+
+      }
+    });
+
     this.state = {
       user: null,
       firstName: '',
@@ -33,6 +49,7 @@ export default class App extends React.Component {
     this.handleLoteria = this.handleLoteria.bind(this);
     this.cleanLine = this.cleanLine.bind(this);
     this.cleanLoteria = this.cleanLoteria.bind(this);
+    this.handleEndGame = this.handleEndGame.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +62,10 @@ export default class App extends React.Component {
     const token = window.localStorage.getItem('react-context-jwt');
     const user = token ? decodeToken(token) : null;
     this.setState({ user, isAuthorizing: false });
+  }
+
+  handleEndGame() {
+    endGame(this.state.game, this.state.user.username);
   }
 
   cleanLine() {
@@ -96,6 +117,7 @@ export default class App extends React.Component {
   }
 
   handleSignOut() {
+    signOut();
     window.localStorage.removeItem('react-context-jwt');
     this.setState({ user: null });
   }
@@ -139,8 +161,8 @@ export default class App extends React.Component {
 
     if (this.state.isAuthorizing) return null;
     const { user, firstName, lastName, email, username, route, game, cardId, line, loteria } = this.state;
-    const { handleSignIn, handleSignOut, handleUserData, handleGame, handleCard, handleLine, handleLoteria, cleanLine, cleanLoteria } = this;
-    const contextValue = { user, firstName, lastName, email, username, route, game, cardId, line, loteria, handleSignIn, handleSignOut, handleUserData, handleGame, handleCard, handleLine, handleLoteria, cleanLine, cleanLoteria };
+    const { handleSignIn, handleSignOut, handleUserData, handleGame, handleCard, handleLine, handleLoteria, cleanLine, cleanLoteria, handleEndGame } = this;
+    const contextValue = { user, firstName, lastName, email, username, route, game, cardId, line, loteria, handleSignIn, handleSignOut, handleUserData, handleGame, handleCard, handleLine, handleLoteria, cleanLine, cleanLoteria, handleEndGame };
 
     return (
     <AppContext.Provider value={contextValue}>

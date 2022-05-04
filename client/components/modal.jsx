@@ -19,6 +19,7 @@ export default class Modal extends React.Component {
   handleClick(action) {
 
     const { closeModal } = this.props.action;
+    const { handleSignOut, handleEndGame } = this.context;
 
     if (action === 'save') {
       const { handleUserData } = this.context;
@@ -47,7 +48,6 @@ export default class Modal extends React.Component {
     }
 
     if (action === 'sign-out') {
-      const { handleSignOut } = this.context;
       handleSignOut();
       window.location.hash = '#';
     }
@@ -59,6 +59,16 @@ export default class Modal extends React.Component {
     }
 
     if ((action === 'loteria-confirmation') || (action === 'lost-loteria-confirmation')) {
+      closeModal();
+      window.location.hash = 'game';
+    }
+
+    if (action === 'end-game') {
+      closeModal();
+      handleEndGame();
+    }
+
+    if (action === 'time-out') {
       closeModal();
       window.location.hash = 'game';
     }
@@ -97,6 +107,24 @@ export default class Modal extends React.Component {
       </div>
     );
 
+  }
+
+  handleTimeOut(value) {
+    const message = 'Game Ended';
+    const button = [{ name: 'OK', action: 'time-out' }];
+    return (this.handleModal(message, button, value));
+  }
+
+  handleEndGame(value) {
+    const message = 'Thank you for playing Loteria Mexicana';
+    const button = [{ name: 'OK', action: 'end-game' }];
+    return (this.handleModal(message, button, value));
+  }
+
+  handleSignOut(value) {
+    const message = 'Thank you for visiting Loteria Mexicana';
+    const button = [{ name: 'OK', action: 'sign-out' }];
+    return (this.handleModal(message, button, value));
   }
 
   handleLostLoteria(value) {
@@ -177,6 +205,18 @@ export default class Modal extends React.Component {
 
     if (value === 'lost-loteria') {
       return this.handleLostLoteria(value);
+    }
+
+    if (value === 'end-game') {
+      return this.handleEndGame(value);
+    }
+
+    if (value === 'sign-out') {
+      return this.handleSignOut(value);
+    }
+
+    if (value === 'time-out') {
+      return this.handleTimeOut(value);
     }
 
   }

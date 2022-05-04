@@ -1,6 +1,6 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
-import { startingGame, joiningRoom, enablingButtons, tenPoints, stoppingGettingImages } from '../lib/app-connection';
+import { startingGame, joiningRoom, enablingButtons, tenPoints, stoppingGettingImages, timeEnded } from '../lib/app-connection';
 import Modal from '../components/modal';
 import Overlay from '../components/overlay';
 
@@ -35,7 +35,8 @@ export default class YourCard extends React.Component {
     enablingButtons(status => {
       this.setState({
         isLineButtonDisable: status,
-        isLoteriaButtonDisabled: status
+        isLoteriaButtonDisabled: status,
+        isStartGameButtonDisabled: true
       });
     });
 
@@ -55,6 +56,16 @@ export default class YourCard extends React.Component {
       });
 
       stoppingGettingImages(game);
+
+    });
+
+    timeEnded(() => {
+
+      this.setState({
+        modalValue: 'time-out',
+        overlayStatus: '',
+        modalStatus: ''
+      });
 
     });
 
@@ -179,6 +190,14 @@ export default class YourCard extends React.Component {
 
     if (action === 'select-new-card') {
       window.location.hash = 'cards';
+    }
+
+    if (action === 'end-game') {
+      this.setState({
+        overlayStatus: '',
+        modalStatus: '',
+        modalValue: 'end-game'
+      });
     }
 
   }
