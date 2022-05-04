@@ -350,7 +350,12 @@ body {
   height: 400px;
 }
 
+.image-card-container {
+  position: relative;
+}
+
 .image-card {
+  position: relative;
   width: 100%;
 }
 
@@ -425,8 +430,9 @@ body {
 
 .image-mark {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 25%;
+  left: 25%;
+  transition: translate(-25%, -25%);
   font-size: 30px;
 }
 
@@ -443,8 +449,12 @@ body {
   font-size: 15px;
 }
 
-.user-points {
+.user-points-green {
   color: green;
+}
+
+.user-points-gray {
+  color: gray;
 }
 
 @media screen and (min-width: 500px) {
@@ -543,9 +553,6 @@ body {
   }
 
   .image-mark {
-    position: absolute;
-    top: 30px;
-    left: 30px;
     font-size: 60px;
   }
 

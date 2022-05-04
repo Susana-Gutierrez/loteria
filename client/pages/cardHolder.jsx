@@ -1,5 +1,5 @@
 import React from 'react';
-import { gettingImagesId, stoppingGettingImages, receivingUpdateFivePoints, updatingFivePoints, gettingLoteria, stoppingGame, connectedUsers } from '../lib/app-connection';
+import { gettingImagesId, stoppingGettingImages, receivingUpdatePoints, updatingPoints, gettingLoteria, stoppingGame, connectedUsers, usersReady } from '../lib/app-connection';
 import AppContext from '../lib/app-context';
 
 const cardHolder = 'images/image-holder.jpg';
@@ -33,7 +33,8 @@ export default class CardHolder extends React.Component {
           imageIndex: null,
           isLineSelected: false,
           isLoteriaWon: false,
-          hidden: 'hidden'
+          hidden: 'hidden',
+          userReady: []
         });
       }
     });
@@ -50,10 +51,22 @@ export default class CardHolder extends React.Component {
           });
         }
       }
+    });
+
+    usersReady(user => {
+
+      for (let i = 0; i < user.length; i++) {
+        if (this.state.userReady.includes(user[i]) === false) {
+          this.setState({
+            userReady: [...this.state.userReady, user[i]]
+
+          });
+        }
+      }
 
     });
 
-    receivingUpdateFivePoints((username, points) => {
+    receivingUpdatePoints((username, points) => {
 
       const { user } = this.context;
 
@@ -90,7 +103,8 @@ export default class CardHolder extends React.Component {
       hidden: 'hidden',
       connectedUsers: [],
       usersPoints: [],
-      isLoteriaWon: false
+      isLoteriaWon: false,
+      userReady: []
     };
 
     this.handleImage = this.handleImage.bind(this);
@@ -104,6 +118,12 @@ export default class CardHolder extends React.Component {
       .then(cards => {
         this.handleCard(cards);
       });
+  }
+
+  componentWillUnmount() {
+    this.setState = (state, callback) => {
+
+    };
   }
 
   handleGettingUsersPoints(username) {
@@ -135,14 +155,23 @@ export default class CardHolder extends React.Component {
 
   handleUsersPoints() {
     const usersPoints = this.state.usersPoints;
+    const readyUsers = this.state.userReady;
+    let userPointsClassName;
+
     const users = usersPoints.map((user, index) => {
+
+      if (readyUsers.includes(user.username) === true) {
+        userPointsClassName = 'user-points-green';
+      } else {
+        userPointsClassName = 'user-points-gray';
+      }
 
       return (
         <div key={index} className="row">
-          <div className="players-column-half user-points">
+          <div className={`players-column-half ${userPointsClassName}`}>
             {user.username}
           </div>
-          <div className="players-column-half user-points">
+          <div className={`players-column-half ${userPointsClassName}`}>
             {user.totalPoints}
           </div>
         </div>
@@ -172,7 +201,7 @@ export default class CardHolder extends React.Component {
       .then(result => {
       });
 
-    updatingFivePoints(game, user.username, points);
+    updatingPoints(game, user.username, points);
 
   }
 

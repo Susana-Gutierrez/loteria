@@ -32,6 +32,10 @@ function connectedUsers(users) {
   socket.on('usersInRoom', users);
 }
 
+function usersReady(userReady, user) {
+  socket.on('ready', username => userReady(username));
+}
+
 function startingGame(game) {
   socket.emit('startGame', game.gameName);
 }
@@ -48,12 +52,12 @@ function stoppingGettingImages(game) {
   socket.emit('stopGetMessage', game.gameName);
 }
 
-function updatingFivePoints(game, username, points) {
-  socket.emit('updating5Points', game.gameName, username, points);
+function updatingPoints(game, username, points) {
+  socket.emit('updatingPoints', game.gameName, username, points);
 }
 
-function receivingUpdateFivePoints(receivingFivePointsUpdate, username, points) {
-  socket.on('receivingUpdate5Points', (username, points) => receivingFivePointsUpdate(username, points));
+function receivingUpdatePoints(receivingPointsUpdate, username, points) {
+  socket.on('receivingUpdatePoints', (username, points) => receivingPointsUpdate(username, points));
 }
 
 function gettingLoteria(game, username) {
@@ -68,7 +72,4 @@ function stoppingGame(isGameStopped, game) {
   socket.on('stopGame', (stopGame, game) => isGameStopped(stopGame, game));
 }
 
-export {
-  AppConnection, startingGame, gettingImagesId, joiningRoom, connectedUsers, enablingButtons,
-  stoppingGettingImages, updatingFivePoints, receivingUpdateFivePoints, gettingLoteria, tenPoints, stoppingGame
-};
+export { AppConnection, startingGame, gettingImagesId, joiningRoom, connectedUsers, usersReady, enablingButtons, stoppingGettingImages, updatingPoints, receivingUpdatePoints, gettingLoteria, tenPoints, stoppingGame };
