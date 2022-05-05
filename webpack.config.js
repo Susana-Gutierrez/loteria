@@ -38,7 +38,7 @@ module.exports = {
       watch: true
     },
     proxy: {
-      '/api': `http://localhost:${process.env.PORT}`
+      '/api': `/${process.env.PORT}`
     }
   },
   stats: 'summary',
