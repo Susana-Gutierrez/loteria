@@ -127,6 +127,7 @@ export default class ProfileForm extends React.Component {
 
     let name = '';
     let value = '';
+    // eslint-disable-next-line no-useless-escape
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     let status;
     let result = {};

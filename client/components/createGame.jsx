@@ -24,37 +24,15 @@ export default class CreateGame extends React.Component {
 
   saveGame(game) {
 
-    const isGameConfirmed = this.props.value;
-    const gameName = { game };
-
-    if ((isGameConfirmed === false) && (this.state.game === '')) {
-
-      const req = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(gameName)
-      };
-      fetch('/api/games', req)
-        .then(res => res.json())
-        .then(result => {
-          if (!result.error) {
-
-            this.getGame(result.gameName);
-          }
-        }
-        );
-    }
+    // eslint-disable-next-line no-console
+    console.log('save game');
 
   }
 
   createGame() {
 
-    const today = new Date();
-    const date = today.getDate() + today.getMonth() + today.getFullYear() + today.getTime();
-    const game = `Game${date}`;
-    this.saveGame(game);
+    // eslint-disable-next-line no-console
+    console.log('create a game');
 
   }
 
