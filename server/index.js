@@ -14,10 +14,11 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
   cors: {
-    origin: `/:${process.env.PORT}` || 3000,
+    origin: 'http://localhost:3000',
     methods: ['GET', 'POST']
   }
 });
+
 const jsonMiddleware = express.json();
 
 const users = [];
@@ -497,7 +498,6 @@ io.on('connection', socket => {
 
     for (let i = users.length - 1; i >= 0; i--) {
       if (users[i].id === socket.id) {
-        /* username = users[i].username; */
         users.splice(i, 1);
       }
     }

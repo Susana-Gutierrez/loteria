@@ -13,7 +13,7 @@ const styles = {
     borderRadius: '7px',
     backgroundColor: '#dbdbdb',
     border: 'none',
-    margin: '1%'
+    margin: '3%'
   }
 };
 

@@ -48,7 +48,7 @@ export default class Background extends React.Component {
             </div>
 
             <div className="column-half">
-              <div className="small-blue-background">
+              <div className="small-blue-background small-blue-backgroud-test">
                 <div className="small-gray-background">
                   {column2}
                 </div>

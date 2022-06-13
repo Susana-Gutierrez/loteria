@@ -50,8 +50,8 @@ export default class CreateGame extends React.Component {
   }
 
   createGame() {
-
-    const date = '0001';
+    const today = new Date();
+    const date = today.getDate() + today.getMonth() + today.getFullYear() + today.getTime();
     const game = `Game${date}`;
     this.saveGame(game);
 
