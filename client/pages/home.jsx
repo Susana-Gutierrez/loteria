@@ -12,12 +12,18 @@ export default function Home(props) {
         <>
 
         <div className="container">
-
-        <div className="row">
-          <div className="column-half">
-            <div className="home-column-title">
-              <Title />
+          <div className="row">
+            <div className="column-half">
+              <div className="home-column-title">
+                <Title />
+              </div>
             </div>
+          <div className="column-half"></div>
+        </div>
+
+        <div className="row row-reverse-home">
+          <div className="column-half">
+
           <div className="home-logo">
               <Logo className="home-img-logo" />
           </div>

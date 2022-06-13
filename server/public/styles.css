@@ -15,7 +15,8 @@ body {
 .sign-in-button {
   width: 171px;
   height: 50px;
-  margin-top: 15%;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
   margin-right: 0;
   padding-top: 5px;
   font-size: 20px;
@@ -45,6 +46,7 @@ body {
 
 .blue-background-only {
   background-color: #092f8e;
+  margin-bottom: 1.25rem;
 }
 
 .blue-background {
@@ -52,6 +54,7 @@ body {
   width: 1584px;
   height: 98%;
   background-color: #092f8e;
+  margin-bottom: 1.25rem;
 }
 
 .small-blue-background {
@@ -71,11 +74,11 @@ body {
   width: 100%;
   height: 93%;
   background-color: #c4c4c4;
-  margin: 25px;
+  margin: 1.56rem;
 }
 
 .sign-in-titles {
-  margin: 25% 20% 10%;
+  margin: 23% 20% 10%;
   text-align: left;
 }
 
@@ -87,11 +90,12 @@ body {
 .new-account-tittle {
   text-align: center;
   margin-top: 5%;
+  margin-bottom: 3%;
 }
 
 .create-account-button {
   padding: 5px;
-  width: 100px;
+  width: 12.5rem;
   font-size: 12px;
   background-color: #e5e3e3;
   border-radius: 7px;
@@ -130,6 +134,7 @@ body {
   padding-left: 20%;
   padding-right: 20%;
   padding-bottom: 12%;
+  padding-top: 50px;
 }
 
 .new-player-logo {
@@ -140,10 +145,12 @@ body {
 
 .home-logo {
   align-content: center;
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
 }
 
 .home-img-logo {
-  width: 95%;
+  width: 100%;
 }
 
 .new-account-img-logo {
@@ -151,7 +158,7 @@ body {
 }
 
 .new-player-img-logo {
-  width: 25%;
+  width: 35%;
 }
 
 .main-menu-img-logo {
@@ -216,6 +223,7 @@ body {
 }
 
 .overlay {
+  z-index: 3;
   position: fixed;
   background-color: #e5e5e5b2;
   top: 0;
@@ -225,15 +233,15 @@ body {
 }
 
 .pop-up {
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   position: fixed;
   padding-top: 15px;
   padding-right: 10px;
   padding-left: 10px;
-  width: 300px;
-  height: 150px;
+  width: 17.18rem;
+  height: 10.62rem;
   border-radius: 10px;
   background-color: white;
 }
@@ -269,6 +277,7 @@ body {
 .modal-message {
   padding-top: 5%;
   padding-bottom: 15%;
+  font-size: 0.93rem;
 }
 
 .profile-form-button {
@@ -288,6 +297,7 @@ body {
   text-align: left;
   padding-right: 7%;
   font-size: 15px;
+  padding-bottom: 5px;
 }
 
 .instructions-button {
@@ -329,6 +339,7 @@ body {
 
 .game-menu-logo {
   padding-top: 5%;
+  padding-bottom: 10%;
 }
 
 .game-menu-img-logo {
@@ -399,6 +410,8 @@ body {
 
 .card-holder {
   padding-top: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .score-container {
@@ -409,13 +422,13 @@ body {
 }
 
 .img-card-holder {
-  width: 50%;
-  height: 300px;
+  height: 160px;
 }
 
 .players {
   width: 100%;
-  height: 300px;
+  height: 200px;
+  border-radius: 7px;
   background-color: #e5e3e3;
 }
 
@@ -444,7 +457,7 @@ body {
 
 .loteria-modal-message {
   padding-top: 5%;
-  padding-bottom: 5%;
+  padding-bottom: 10%;
   color: #008000;
   font-size: 15px;
 }
@@ -467,7 +480,7 @@ body {
 
 @media screen and (min-width: 770px) {
   .ol-instructions {
-    padding-top: 0;
+    padding-top: 50px;
   }
 
   .home-img-logo {
@@ -478,8 +491,8 @@ body {
     width: 85%;
   }
 
-  .sign-in-button {
-    margin-top: 30%;
+  .new-player-img-logo {
+    width: 25%;
   }
 
   .sign-in-input {
@@ -518,6 +531,10 @@ body {
     height: 214px;
   }
 
+  .game-menu-logo {
+    padding-bottom: 2%;
+  }
+
   .game-menu-img-logo {
     width: 30%;
   }
@@ -540,7 +557,6 @@ body {
 
   .card-holder {
     padding-top: 35%;
-    padding-left: 10%;
   }
 
   .score-container {
@@ -558,6 +574,7 @@ body {
 
   .loteria-modal-message {
     font-size: 27px;
+    padding-bottom: 5%;
   }
 }
 

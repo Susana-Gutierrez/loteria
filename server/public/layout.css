@@ -7,8 +7,8 @@
 .card-container {
   width: 100%;
   padding-top: 1%;
-  padding-right: 5%;
-  padding-left: 5%;
+  padding-right: 7%;
+  padding-left: 7%;
 }
 
 .row {
@@ -22,6 +22,11 @@
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: center;
+}
+
+.row-reverse-home {
+  display: flex;
+  flex-wrap: wrap-reverse;
 }
 
 .column,

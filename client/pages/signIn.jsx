@@ -2,21 +2,23 @@ import React from 'react';
 
 const styles = {
   username: {
-    width: '160px',
-    margin: '5px',
+    width: '10.62rem',
+    margin: '0.31rem',
     border: 'none',
     backgroundColor: '#e5e3e3'
   },
   password: {
-    width: '160px',
-    margin: '10px',
+    /* width: '10.6rem', */
+    width: '10.62rem',
+    margin: '0.62rem',
     border: 'none',
     backgroundColor: '#e5e3e3'
   },
   button: {
-    width: '95px',
-    height: '35px',
-    borderRadius: '7px',
+    fontSize: '0.75rem',
+    width: '5.93rem',
+    height: '2.18rem',
+    borderRadius: '0.43rem',
     backgroundColor: '#dbdbdb',
     border: 'none'
   }

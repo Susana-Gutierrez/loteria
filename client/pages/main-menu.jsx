@@ -112,7 +112,7 @@ export default class MainMenu extends React.Component {
     return (
       <>
         <div className="column-third">
-          {button}
+            {button}
         </div>
         <div className="column-third">
           <div className="main-menu-logo">
