@@ -30,7 +30,7 @@ const styles = {
   },
   input: {
     writable: true,
-    width: '170px',
+    width: '80%',
     height: '25px',
     border: 'none',
     backgroundColor: '#e5e3e3'
@@ -332,12 +332,16 @@ export default class ProfileForm extends React.Component {
 
           <div className="column-half">
             {fields}
-            <div className="profile-form-button">
-              {buttons}
+
+            <div className="row">
+              <div className="profile-form-button">
+                {buttons}
+              </div>
+              <div className={`profile-error-message ${this.state.errorMessageStatus}`}>
+                <span>&#9888;{this.state.errorMessage}</span>
+              </div>
             </div>
-            <div className={`profile-error-message ${this.state.errorMessageStatus}`}>
-              <span>&#9888;{this.state.errorMessage}</span>
-            </div>
+
           </div>
         </div>
         <Overlay className={this.state.overlayStatus} />
