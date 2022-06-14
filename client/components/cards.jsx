@@ -13,7 +13,7 @@ const styles = {
     borderRadius: '7px',
     backgroundColor: '#dbdbdb',
     border: 'none',
-    margin: '3%'
+    margin: '1%'
   }
 };
 
@@ -252,7 +252,7 @@ export default class Cards extends React.Component {
         <div className="row">
           {buttons}
         </div>
-        <div className={this.state.messageClass}>{this.state.message}</div>
+        <div className={`message-card ${this.state.messageClass}`}>{this.state.message}</div>
       </>
     );
 

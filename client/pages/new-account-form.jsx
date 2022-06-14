@@ -22,7 +22,7 @@ const styles = {
     margin: '3px'
   },
   input: {
-    width: '170px',
+    width: '80%',
     height: '25px',
     border: 'none',
     backgroundColor: '#e5e3e3'
@@ -254,8 +254,10 @@ export default class NewAccountForm extends React.Component {
             <label style={styles.label}>{field.label}</label>
           </div>
           <div className="column-half sign-up-input">
-            <input type={field.type} name={field.field} style={styles.input} onChange={this.handleChange} onClick={() => this.handleClick(field.field)} onBlur={this.handleBlur} />
-            {validationText}
+            <div className="column-input">
+              <input type={field.type} name={field.field} style={styles.input} onChange={this.handleChange} onClick={() => this.handleClick(field.field)} onBlur={this.handleBlur} />
+              {validationText}
+            </div>
           </div>
         </div>
       );
@@ -283,18 +285,22 @@ export default class NewAccountForm extends React.Component {
               <Logo className="new-account-img-logo" />
             </div>
         </div>
-
         <div className="column-half">
-                {fields}
-                <div className="sign-up-input">
-                  <button className="sign-in-enter" style={styles.button} onClick={this.handleSubmit}>Create User</button>
-                  <button className="sign-in-enter" style={styles.button} onClick={this.handleClickCancel}>Cancel</button>
-                </div>
-                <div className={`sign-up-error-message ${this.state.hidden}`}>
-                  <span>&#9888;{this.state.errorMessage}</span>
-                </div>
-              </div>
+          {fields}
+
+          <div className="row">
+            <div className="sign-up-buttons">
+              <button className="sign-in-enter" style={styles.button} onClick={this.handleSubmit}>Create User</button>
+              <button className="sign-in-enter" style={styles.button} onClick={this.handleClickCancel}>Cancel</button>
+            </div>
+            <div className="sign-up-error-message">
+              <span className={this.state.hidden}>&#9888;{this.state.errorMessage}</span>
+            </div>
           </div>
+
+        </div>
+      </div>
+
     </>
     );
   }
