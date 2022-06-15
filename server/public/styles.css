@@ -489,6 +489,37 @@ body {
   margin-bottom: 5%;
 }
 
+.loading-container {
+  contain: content;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+.loading-height {
+  align-items: center;
+  height: 100%;
+  margin: 7%;
+}
+
+.loading::after {
+  content: "";
+  width: 3.1rem;
+  height: 3.1rem;
+  border: 0.6rem solid #ddd;
+  border-top-color: #092f8e;
+  border-radius: 50%;
+  animation: loading 1s ease infinite;
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 @media screen and (min-width: 500px) {
   .small-blue-background {
     display: flex;

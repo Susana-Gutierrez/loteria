@@ -1,5 +1,6 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
+import LoadingSpinner from './loadingSpinner';
 
 const buttons = [
   { name: 'Select Card', action: 'select-card' },
@@ -27,12 +28,14 @@ export default class Cards extends React.Component {
       cardShown: 0,
       isReadyDisabled: false,
       message: '',
-      messageClass: ''
+      messageClass: '',
+      loading: true
     };
 
     this.handleDotClick = this.handleDotClick.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handlePrevious = this.handlePrevious.bind(this);
+
   }
 
   componentDidMount() {
@@ -49,18 +52,22 @@ export default class Cards extends React.Component {
   }
 
   getImages() {
+    this.setState({ loading: true });
     fetch('/api/images')
       .then(res => res.json())
       .then(images => {
         this.updateImages(images);
+        this.setState({ loading: false });
       });
   }
 
   getCards() {
+    this.setState({ loading: true });
     fetch('/api/cards')
       .then(res => res.json())
       .then(cards => {
         this.updateCards(cards);
+        this.setState({ loading: false });
       });
   }
 
@@ -262,7 +269,7 @@ export default class Cards extends React.Component {
 
     return (
       <>
-       {this.renderPage()}
+        {this.state.loading ? <LoadingSpinner /> : this.renderPage()}
       </>
     );
 
