@@ -18,7 +18,6 @@ const io = require('socket.io')(http, {
     methods: ['GET', 'POST']
   }
 });
-
 const jsonMiddleware = express.json();
 
 const users = [];
@@ -446,6 +445,14 @@ io.on('connection', socket => {
           const endedTime = setTimeout(() => {
             io.in(game).emit('timeEnded');
             clearTimeout(endedTime);
+            delete gamesCards[game];
+
+            for (let i = readyUsers.length - 1; i >= 0; i--) {
+              if (readyUsers[i].room === game) {
+                readyUsers.splice(i, 1);
+              }
+            }
+
           }, 10000);
         }
       }, 2000, game);
@@ -462,6 +469,9 @@ io.on('connection', socket => {
           readyUsers.splice(i, 1);
         }
       }
+
+      delete gamesCards[game];
+
     });
   });
 

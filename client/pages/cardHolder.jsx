@@ -3,7 +3,6 @@ import { gettingImagesId, receivingUpdatePoints, updatingPoints, gettingLoteria,
 import AppContext from '../lib/app-context';
 
 const cardHolder = 'images/image-holder.jpg';
-/* let gameTimeOut; */
 
 export default class CardHolder extends React.Component {
 
