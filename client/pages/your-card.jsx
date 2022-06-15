@@ -3,6 +3,7 @@ import AppContext from '../lib/app-context';
 import { startingGame, joiningRoom, enablingButtons, tenPoints, stoppingGettingImages, timeEnded } from '../lib/app-connection';
 import Modal from '../components/modal';
 import Overlay from '../components/overlay';
+import LoadingSpinner from '../components/loadingSpinner';
 
 const gamebuttons = [
   { name: 'Line', action: 'line' },
@@ -80,7 +81,8 @@ export default class YourCard extends React.Component {
       lines: [],
       overlayStatus: 'hidden',
       modalStatus: 'hidden',
-      modalValue: ''
+      modalValue: '',
+      loading: true
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -90,6 +92,8 @@ export default class YourCard extends React.Component {
   }
 
   componentDidMount() {
+
+    this.setState({ loading: true });
 
     const { cardId } = this.context;
 
@@ -108,6 +112,7 @@ export default class YourCard extends React.Component {
       .then(res => res.json())
       .then(result => {
         this.handleCard(result);
+        this.setState({ loading: false });
       });
 
   }
@@ -358,7 +363,7 @@ export default class YourCard extends React.Component {
 
   render() {
 
-    return <>{this.buildingCard()}</>;
+    return <>{this.state.loading ? <LoadingSpinner /> : this.buildingCard()}</>;
 
   }
 
