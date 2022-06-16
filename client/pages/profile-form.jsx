@@ -90,12 +90,13 @@ export default class ProfileForm extends React.Component {
     fetch(`/api/user/${user.userId}`, req)
       .then(res => res.json())
       .then(result => {
-        if (result.error) {
+        if (!result.error) {
+          this.setState({ modalValue: 'delete-confirmation' });
+        } else {
+          this.closeModal();
           this.handleErrorMessage(result.error);
         }
       });
-
-    this.setState({ modalValue: 'delete-confirmation' });
 
   }
 
@@ -236,6 +237,7 @@ export default class ProfileForm extends React.Component {
 
   handleSubmit(action) {
     event.preventDefault();
+    this.setState({ errorMessageStatus: 'hidden' });
 
     if (action === 'cancel') {
       if (this.state.page === 'edit') {

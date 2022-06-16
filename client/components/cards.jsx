@@ -55,9 +55,13 @@ export default class Cards extends React.Component {
     this.setState({ loading: true });
     fetch('/api/images')
       .then(res => res.json())
-      .then(images => {
-        this.updateImages(images);
-        this.setState({ loading: false });
+      .then(result => {
+        if (!result.error) {
+          this.updateImages(result);
+          this.setState({ loading: false });
+        } else {
+          window.location.hash = 'no-found';
+        }
       });
   }
 
@@ -65,9 +69,13 @@ export default class Cards extends React.Component {
     this.setState({ loading: true });
     fetch('/api/cards')
       .then(res => res.json())
-      .then(cards => {
-        this.updateCards(cards);
-        this.setState({ loading: false });
+      .then(result => {
+        if (!result.error) {
+          this.updateCards(result);
+          this.setState({ loading: false });
+        } else {
+          window.location.hash = 'no-found';
+        }
       });
   }
 
@@ -136,7 +144,7 @@ export default class Cards extends React.Component {
             handleCard(data.cardId);
             this.setState({ message: 'card  was seleted', messageClass: 'cards-message', isReadyDisabled: true });
           } else {
-            this.setState({ message: 'an error has occurred', messageClass: 'cards-error-message' });
+            window.location.hash = 'no-found';
           }
         });
     }

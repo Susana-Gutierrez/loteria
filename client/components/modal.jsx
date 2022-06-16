@@ -22,15 +22,6 @@ export default class Modal extends React.Component {
     const { handleSignOut, handleEndGame } = this.context;
 
     if (action === 'save') {
-      const { handleUserData } = this.context;
-      const fields = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        username: ''
-      };
-
-      handleUserData(fields);
       window.location.hash = 'main-menu';
     }
 
