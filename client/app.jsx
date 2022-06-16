@@ -154,6 +154,9 @@ export default class App extends React.Component {
     if (route.path === 'game') {
       return <Background />;
     }
+    if (route.path === 'no-found') {
+      return <NotFound />;
+    }
     return <NotFound />;
   }
 

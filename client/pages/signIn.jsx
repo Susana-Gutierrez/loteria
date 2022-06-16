@@ -8,7 +8,6 @@ const styles = {
     backgroundColor: '#e5e3e3'
   },
   password: {
-    /* width: '10.6rem', */
     width: '10.62rem',
     margin: '0.62rem',
     border: 'none',

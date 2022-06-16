@@ -40,13 +40,13 @@ export default class CreateGame extends React.Component {
         .then(res => res.json())
         .then(result => {
           if (!result.error) {
-
             this.getGame(result.gameName);
+          } else {
+            window.location.hash = 'no-found';
           }
         }
         );
     }
-
   }
 
   createGame() {
@@ -54,7 +54,6 @@ export default class CreateGame extends React.Component {
     const date = today.getDate() + today.getMonth() + today.getFullYear() + today.getTime();
     const game = `Game${date}`;
     this.saveGame(game);
-
   }
 
   render() {

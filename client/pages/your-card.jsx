@@ -111,8 +111,12 @@ export default class YourCard extends React.Component {
     fetch('/api/game', req)
       .then(res => res.json())
       .then(result => {
-        this.handleCard(result);
-        this.setState({ loading: false });
+        if (!result.error) {
+          this.handleCard(result);
+          this.setState({ loading: false });
+        } else {
+          window.location.hash = 'no-found';
+        }
       });
 
   }

@@ -19,8 +19,12 @@ export default class SecondBackground extends React.Component {
     if (route.path === 'sign-up') {
       return <NewAccountForm />;
     }
-    if ((route.path === 'profile-form') && (value.username !== '')) {
-      return <ProfileForm value={value} />;
+    if (route.path === 'profile-form') {
+      if (value.username !== '') {
+        return <ProfileForm value={value} />;
+      } else {
+        window.location.hash = 'no-found';
+      }
     }
     if (route.path === 'instructions') {
       return <Instructions />;

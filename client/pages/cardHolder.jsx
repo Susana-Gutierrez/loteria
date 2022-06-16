@@ -132,8 +132,12 @@ export default class CardHolder extends React.Component {
 
     fetch('/api/game')
       .then(res => res.json())
-      .then(cards => {
-        this.handleCard(cards);
+      .then(result => {
+        if (!result.error) {
+          this.handleCard(result);
+        } else {
+          window.location.hash = 'no-found';
+        }
       });
   }
 
@@ -165,7 +169,7 @@ export default class CardHolder extends React.Component {
           this.setState({ usersPoints: [...this.state.usersPoints, result] });
           return result;
         } else {
-          this.handleErrorMessage(result.error);
+          window.location.hash = 'no-found';
         }
       });
   }
@@ -218,8 +222,10 @@ export default class CardHolder extends React.Component {
       fetch('/api/points', req)
         .then(res => res.json())
         .then(result => {
+          if (result.error) {
+            window.location.hash = 'no-found';
+          }
         });
-
     }
 
     updatingPoints(game, user.username, points);

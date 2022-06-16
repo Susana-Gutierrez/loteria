@@ -28,6 +28,19 @@ export default class MainMenu extends React.Component {
     this.handleModalValue = this.handleModalValue.bind(this);
   }
 
+  componentDidMount() {
+
+    const { handleUserData } = this.context;
+    const fields = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      username: ''
+    };
+
+    handleUserData(fields);
+  }
+
   handleModalValue() {
     this.setState({ modalValue: '' });
   }
@@ -73,9 +86,13 @@ export default class MainMenu extends React.Component {
       const { user, handleUserData } = this.context;
       fetch(`/api/user/${user.userId}`)
         .then(res => res.json())
-        .then(user => {
-          handleUserData(user);
-          window.location.hash = 'profile-form';
+        .then(result => {
+          if (!result.error) {
+            handleUserData(result);
+            window.location.hash = 'profile-form';
+          } else {
+            window.location.hash = 'no-found';
+          }
         });
     }
 
