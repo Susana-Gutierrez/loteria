@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from '../components/logo';
+import AppContext from '../lib/app-context';
 
 const buttons = [
   { name: 'See Cards', action: 'see-cards' }
@@ -17,6 +18,16 @@ const styles = {
 };
 
 export default class GameMenu extends React.Component {
+
+  componentDidMount() {
+
+    const { user } = this.context;
+
+    if (user === null) {
+      window.location.hash = 'no-found';
+    }
+
+  }
 
   handleClick(action) {
 
@@ -61,3 +72,5 @@ export default class GameMenu extends React.Component {
   }
 
 }
+
+GameMenu.contextType = AppContext;

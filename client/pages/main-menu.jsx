@@ -30,7 +30,7 @@ export default class MainMenu extends React.Component {
 
   componentDidMount() {
 
-    const { handleUserData } = this.context;
+    const { user, handleUserData } = this.context;
     const fields = {
       firstName: '',
       lastName: '',
@@ -39,6 +39,11 @@ export default class MainMenu extends React.Component {
     };
 
     handleUserData(fields);
+
+    if (user === null) {
+      window.location.hash = 'no-found';
+    }
+
   }
 
   handleModalValue() {

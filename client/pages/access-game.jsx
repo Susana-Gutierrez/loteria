@@ -42,6 +42,16 @@ export default class AccessGame extends React.Component {
 
   }
 
+  componentDidMount() {
+
+    const { user } = this.context;
+
+    if (user === null) {
+      window.location.hash = 'no-found';
+    }
+
+  }
+
   handleClick() {
     this.setState({ errorMessage: '', hidden: 'hidden' });
   }
