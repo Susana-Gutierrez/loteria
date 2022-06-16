@@ -39,8 +39,15 @@ export default class Cards extends React.Component {
   }
 
   componentDidMount() {
-    this.getCards();
-    this.getImages();
+
+    const { user } = this.context;
+
+    if (user === null) {
+      window.location.hash = 'no-found';
+    } else {
+      this.getCards();
+      this.getImages();
+    }
   }
 
   updateCards(cards) {
