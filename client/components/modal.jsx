@@ -1,7 +1,7 @@
 
 import React from 'react';
 import AppContext from '../lib/app-context';
-import CreateGame from './CreateGame';
+import CreateGame from './create-game';
 
 export default class Modal extends React.Component {
 

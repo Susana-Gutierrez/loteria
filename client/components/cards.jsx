@@ -1,6 +1,6 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
-import LoadingSpinner from './loadingSpinner';
+import LoadingSpinner from './loading-spinner';
 
 const buttons = [
   { name: 'Select Card', action: 'select-card' },
