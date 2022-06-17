@@ -4,28 +4,29 @@ const socket = io('http://localhost:3001');
 
 function AppConnection(action) {
 
-  socket.on('connect', () =>
-  // eslint-disable-next-line no-console
-    console.log(`Client connected: ${socket.id}`));
+  socket.on('connect', () => {
+    // eslint-disable-next-line no-console
+    console.log(`Client connected: ${socket.id}`);
+  });
 
-  socket.on('disconnect', reason =>
-  // eslint-disable-next-line no-console
-    console.log(`Client disconnected: ${reason}`)
-  );
+  socket.on('disconnect', reason => {
+    // eslint-disable-next-line no-console
+    console.log(`Client disconnected: ${reason}`);
+  });
 
-  socket.on('connect_error', reason =>
-  // eslint-disable-next-line no-console
-    console.log(`Client disconnected: ${reason}`)
-  );
+  socket.on('connect_error', reason => {
+    // eslint-disable-next-line no-console
+    console.log(`Client disconnected: ${reason}`);
+  });
 
 }
 
 function joiningRoom(game, username) {
   socket.emit('join', game.gameName, username);
-  socket.on('connectedToRoom', username =>
-  // eslint-disable-next-line no-console
-    console.log('connectedToRoom')
-  );
+  socket.on('connectedToRoom', username => {
+    // eslint-disable-next-line no-console
+    console.log('connectedToRoom');
+  });
 }
 
 function connectedUsers(users) {

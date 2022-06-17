@@ -93,6 +93,14 @@ export default class YourCard extends React.Component {
 
   componentDidMount() {
 
+    window.addEventListener('online', () => {
+      console.log('online');
+    });
+
+    window.addEventListener('offline', () => {
+      console.log('offline');
+    });
+
     this.setState({ loading: true });
 
     const { cardId } = this.context;
@@ -117,6 +125,11 @@ export default class YourCard extends React.Component {
         } else {
           window.location.hash = 'no-found';
         }
+      })
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.log(`Error: ${error}`);
+        window.location.hash = 'error-connection';
       });
 
   }

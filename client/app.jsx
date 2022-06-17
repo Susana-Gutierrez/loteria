@@ -8,6 +8,7 @@ import SecondBackground from './components/secondBackground';
 import { parseRoute } from './lib';
 import ThirdBackground from './components/thirdBackground';
 import { endGame, disconnectedFromGame, signOut } from './lib/app-connection';
+import ErrorConnection from './pages/error-connection';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -53,6 +54,14 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+
+    window.addEventListener('online', () => {
+      window.location.hash = '#';
+    });
+
+    window.addEventListener('offline', () => {
+      window.location.hash = 'error-connection';
+    });
 
     window.addEventListener('hashchange', () => {
       this.setState({
@@ -156,6 +165,9 @@ export default class App extends React.Component {
     }
     if (route.path === 'no-found') {
       return <NotFound />;
+    }
+    if (route.path === 'error-connection') {
+      return <ErrorConnection />;
     }
     return <NotFound />;
   }

@@ -96,6 +96,11 @@ export default class ProfileForm extends React.Component {
           this.closeModal();
           this.handleErrorMessage(result.error);
         }
+      })
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.log(`Error: ${error}`);
+        window.location.hash = 'error-connection';
       });
 
   }
@@ -224,6 +229,11 @@ export default class ProfileForm extends React.Component {
           } else {
             this.handleErrorMessage(result.error);
           }
+        })
+        .catch(error => {
+          // eslint-disable-next-line no-console
+          console.log(`Error: ${error}`);
+          window.location.hash = 'error-connection';
         });
     } else {
       this.handleErrorMessage('invalid inputs');

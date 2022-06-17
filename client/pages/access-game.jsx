@@ -92,6 +92,11 @@ export default class AccessGame extends React.Component {
             } else {
               this.handleErrorMessage(game.error);
             }
+          })
+          .catch(error => {
+            // eslint-disable-next-line no-console
+            console.log(`Error: ${error}`);
+            window.location.hash = 'error-connection';
           });
       }
 

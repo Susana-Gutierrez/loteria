@@ -75,6 +75,11 @@ export default class SignIn extends React.Component {
         } else if (result.user && result.token) {
           this.props.onSignIn(result);
         }
+      })
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.log(`Error: ${error}`);
+        window.location.hash = 'error-connection';
       });
 
   }
