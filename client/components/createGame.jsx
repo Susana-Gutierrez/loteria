@@ -44,8 +44,12 @@ export default class CreateGame extends React.Component {
           } else {
             window.location.hash = 'no-found';
           }
-        }
-        );
+        })
+        .catch(error => {
+          // eslint-disable-next-line no-console
+          console.log(`Error: ${error}`);
+          window.location.hash = 'error-connection';
+        });
     }
   }
 
