@@ -3,7 +3,7 @@ import AppContext from '../lib/app-context';
 import { startingGame, joiningRoom, enablingButtons, tenPoints, stoppingGettingImages, timeEnded } from '../lib/app-connection';
 import Modal from '../components/modal';
 import Overlay from '../components/overlay';
-import LoadingSpinner from '../components/loadingSpinner';
+import LoadingSpinner from '../components/loading-spinner';
 
 const gamebuttons = [
   { name: 'Line', action: 'line' },

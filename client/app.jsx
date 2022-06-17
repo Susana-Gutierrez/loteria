@@ -4,9 +4,9 @@ import decodeToken from './lib/decode-token';
 import Home from './pages/home';
 import NotFound from './pages/not-found';
 import Background from './components/background';
-import SecondBackground from './components/secondBackground';
+import SecondBackground from './components/second-background';
 import { parseRoute } from './lib';
-import ThirdBackground from './components/thirdBackground';
+import ThirdBackground from './components/third-background';
 import { endGame, disconnectedFromGame, signOut } from './lib/app-connection';
 import ErrorConnection from './pages/error-connection';
 

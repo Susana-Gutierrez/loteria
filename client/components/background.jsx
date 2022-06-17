@@ -1,11 +1,11 @@
 
 import React from 'react';
-import SignIn from '../pages/signIn';
+import SignIn from '../pages/sign-in';
 import NewPlayer from '../pages/new-player';
 import Title from '../components/title';
 import AppContext from '../lib/app-context';
 import YourCard from '../pages/your-card';
-import CardHolder from '../pages/cardHolder';
+import CardHolder from '../pages/card-holder';
 
 export default class Background extends React.Component {
 
