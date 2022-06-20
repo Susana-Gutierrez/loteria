@@ -13,7 +13,7 @@ export default function NewPlayer() {
         <h5>New Player? </h5>
       </div>
         <div className="container-create-account-button">
-          <div className="create-account-button" onClick={handleClick}>Create Account</div>
+          <button className="create-account-button" onClick={handleClick}>Create Account</button>
       </div>
       <div className="new-player-logo">
         <Logo className="new-player-img-logo" />

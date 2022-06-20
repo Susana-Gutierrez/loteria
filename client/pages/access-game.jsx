@@ -33,7 +33,8 @@ export default class AccessGame extends React.Component {
     this.state = {
       game: '',
       errorMessage: '',
-      hidden: 'hidden'
+      hidden: 'hidden',
+      buttonAction: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -72,12 +73,11 @@ export default class AccessGame extends React.Component {
 
     const { handleGame } = this.context;
 
-    if (action === 'cancel') {
+    if (this.state.buttonAction === 'cancel') {
       window.location.hash = 'main-menu';
     }
 
-    if (action === 'enter') {
-
+    if (this.state.buttonAction === 'enter') {
       if (this.state.game === '') {
         this.handleErrorMessage('game field is empty');
       } else {
@@ -99,15 +99,16 @@ export default class AccessGame extends React.Component {
             window.location.hash = 'error-connection';
           });
       }
-
     }
+
   }
 
   getButtons() {
+
     const listButtons = buttons.map((button, index) => {
 
       return (
-        <button key={index} style={styles.button} onClick={() => this.handleSubmit(button.action)}>{button.name}</button>
+        <button key={index} type={button.type} style={styles.button} onClick={() => (this.setState({ buttonAction: button.action })) }>{button.name}</button>
       );
     });
 
@@ -130,7 +131,7 @@ export default class AccessGame extends React.Component {
 
           <div className="column-half access-game-column-half">
             <div className="access-game-form-container">
-              <form className="form-access-game">
+              <form className="form-access-game" onSubmit={this.handleSubmit}>
                 <div className="access-game-title">
                   <h5>Access Game</h5>
                 </div>

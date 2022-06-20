@@ -121,7 +121,7 @@ export default class MainMenu extends React.Component {
     const listButtons = button.map((button, index) => {
       return (
         <div key={index} className="row">
-          <div className="main-menu-button" onClick={() => this.handleClick(button.action)}>{button.name}</div>
+          <button className="main-menu-button" onClick={() => this.handleClick(button.action)}>{button.name}</button>
         </div>
       );
     });
@@ -152,9 +152,8 @@ export default class MainMenu extends React.Component {
           </div>
           <div className={`profile-menu-container ${this.state.profileMenu}`}>
             <div className="profile-menu">
-              <div className="menu-option" onClick={() => this.handleClick('Profile')}>Profile</div>
-              <div className="menu-option" onClick={() => this.handleClick('Sign-Out')}>Sign Out</div>
-
+              <div className="menu-option" ><a onClick={() => this.handleClick('Profile')}>Profile</a></div>
+              <div className="menu-option" ><a onClick={() => this.handleClick('Sign-Out')}>Sign Out</a></div>
             </div>
           </div>
         </div>

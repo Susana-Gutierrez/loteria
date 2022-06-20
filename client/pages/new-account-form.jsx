@@ -291,17 +291,19 @@ export default class NewAccountForm extends React.Component {
             </div>
         </div>
         <div className="column-half">
-          {fields}
+          <form onSubmit={this.handleSubmit} >
+            {fields}
 
-          <div className="row">
-            <div className="sign-up-buttons">
-              <button className="sign-in-enter" style={styles.button} onClick={this.handleSubmit}>Create User</button>
-              <button className="sign-in-enter" style={styles.button} onClick={this.handleClickCancel}>Cancel</button>
+            <div className="row">
+              <div className="sign-up-buttons">
+                <button type="submit" className="sign-in-enter" style={styles.button}>Create User</button>
+                <button type="button" className="sign-in-enter" style={styles.button} onClick={this.handleClickCancel}>Cancel</button>
+              </div>
+              <div className="sign-up-error-message">
+                <span className={this.state.hidden}>&#9888;{this.state.errorMessage}</span>
+              </div>
             </div>
-            <div className="sign-up-error-message">
-              <span className={this.state.hidden}>&#9888;{this.state.errorMessage}</span>
-            </div>
-          </div>
+          </form>
 
         </div>
       </div>

@@ -1,11 +1,10 @@
 import React from 'react';
-const profile = 'images/profile.jpg';
 
 export default function Profile({ onClick }) {
 
   return (
 
-    <img className="profile" src={profile} onClick={onClick}/>
+    <button className="profile" onClick={onClick}><i className="fas fa-solid fa-user"></i></button>
 
   );
 }
