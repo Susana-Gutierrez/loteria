@@ -69,7 +69,7 @@ export default class Modal extends React.Component {
   getModalbuttons(buttons) {
 
     const modalButton = buttons.map(button => {
-      return <div key={button.action} className="modal-button" onClick={() => this.handleClick(button.action)}>{button.name}</div>;
+      return <button key={button.action} className="modal-button" onClick={() => this.handleClick(button.action)}>{button.name}</button>;
     });
     return modalButton;
 
@@ -154,7 +154,7 @@ export default class Modal extends React.Component {
     const message = 'Do you want to delete your account?';
     const button = [
       { name: 'OK', action: 'delete' },
-      { name: 'CANCEL', action: 'cancel-delete' }];
+      { name: 'Cancel', action: 'cancel-delete' }];
 
     return this.handleModal(message, button, value);
   }

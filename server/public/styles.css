@@ -2,6 +2,11 @@ body {
   background-color: #48a5a5;
 }
 
+a,
+a:hover {
+  color: #02133f;
+}
+
 .hidden {
   display: none;
 }
@@ -22,6 +27,7 @@ body {
   font-size: 20px;
   border-radius: 10px;
   background-color: #c4c4c4;
+  border: none;
   text-align: center;
   cursor: pointer;
 }
@@ -102,6 +108,7 @@ body {
   font-size: 12px;
   background-color: #e5e3e3;
   border-radius: 7px;
+  border: none;
   height: 35px;
   text-align: center;
   cursor: pointer;
@@ -199,9 +206,9 @@ body {
   width: 201px;
   height: 142px;
   border-radius: 10px;
+  border: none;
   background-color: #c4c4c4;
   font-size: 25px;
-  padding-top: 45px;
   cursor: pointer;
 }
 
@@ -209,7 +216,10 @@ body {
   width: 84px;
   height: 76px;
   border-radius: 50%;
+  border: none;
   cursor: pointer;
+  font-size: 50px;
+  color: #02133f;
 }
 
 .profile-container {

@@ -60,7 +60,8 @@ export default class ProfileForm extends React.Component {
       page: 'profile',
       overlayStatus: 'hidden',
       modalStatus: 'hidden',
-      modalValue: ''
+      modalValue: '',
+      buttonAction: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -68,6 +69,7 @@ export default class ProfileForm extends React.Component {
     this.handleBlur = this.handleBlur.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
   }
 
@@ -245,11 +247,11 @@ export default class ProfileForm extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(action) {
+  handleSubmit(event) {
     event.preventDefault();
     this.setState({ errorMessageStatus: 'hidden' });
 
-    if (action === 'cancel') {
+    if (this.state.buttonAction === 'cancel') {
       if (this.state.page === 'edit') {
         this.setState({ page: 'profile' });
       } else {
@@ -257,19 +259,19 @@ export default class ProfileForm extends React.Component {
       }
     }
 
-    if (action === 'edit') {
+    if (this.state.buttonAction === 'edit') {
       this.setState({
         isInputDisabled: false,
         page: 'edit'
       });
     }
 
-    if (action === 'save') {
-      this.setState({ modalValue: 'save' });
+    if (this.state.buttonAction === 'save') {
       this.saveChanges();
+      this.setState({ modalValue: 'save' });
     }
 
-    if (action === 'delete') {
+    if (this.state.buttonAction === 'delete') {
       this.setState({ modalValue: 'delete' });
       this.handleModal();
     }
@@ -277,6 +279,7 @@ export default class ProfileForm extends React.Component {
   }
 
   getButtons() {
+
     const listButtons = buttons.map((button, index) => {
 
       let buttonClass;
@@ -288,7 +291,7 @@ export default class ProfileForm extends React.Component {
       }
 
       return (
-          <button key={index} className={buttonClass} style={styles.button} onClick={() => this.handleSubmit(button.action)}>{button.name}</button>
+        <button key={index} className={buttonClass} style={styles.button} onClick={() => (this.setState({ buttonAction: button.action })) } >{button.name}</button>
       );
     });
 
@@ -343,16 +346,18 @@ export default class ProfileForm extends React.Component {
           </div>
 
           <div className="column-half">
-            {fields}
+            <form onSubmit={this.handleSubmit}>
+              {fields}
 
-            <div className="row">
-              <div className="profile-form-button">
-                {buttons}
+              <div className="row">
+                <div className="profile-form-button">
+                  {buttons}
+                </div>
+                <div className={`profile-error-message ${this.state.errorMessageStatus}`}>
+                  <span>&#9888;{this.state.errorMessage}</span>
+                </div>
               </div>
-              <div className={`profile-error-message ${this.state.errorMessageStatus}`}>
-                <span>&#9888;{this.state.errorMessage}</span>
-              </div>
-            </div>
+            </form>
 
           </div>
         </div>

@@ -93,14 +93,6 @@ export default class YourCard extends React.Component {
 
   componentDidMount() {
 
-    window.addEventListener('online', () => {
-      console.log('online');
-    });
-
-    window.addEventListener('offline', () => {
-      console.log('offline');
-    });
-
     this.setState({ loading: true });
 
     const { cardId } = this.context;

@@ -92,7 +92,7 @@ export default class SignIn extends React.Component {
           <h5>Sign In</h5>
         </div>
 
-        <form >
+        <form onSubmit={this.handleSubmit}>
           <div className="sign-in-input">
             <label>Username:   </label>
             <input type="text" value={this.state.username} name="username" onChange={this.handleChange} onClick={this.handleClick} style={styles.username} />
@@ -102,7 +102,7 @@ export default class SignIn extends React.Component {
             <input type="password" value={this.state.password} name="password" onChange={this.handleChange} onClick={this.handleClick} style={styles.password} />
           </div>
           <div>
-            <button className="sign-in-enter" style={styles.button} onClick={this.handleSubmit}>Enter</button>
+            <button className="sign-in-enter" style={styles.button}>Enter</button>
           </div>
 
             <div className={`sign-in-error-message ${this.state.hidden}`}>

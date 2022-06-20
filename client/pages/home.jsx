@@ -54,8 +54,8 @@ export default class Home extends React.Component {
 
             <div className="column-half">
               <div className="column-sign-in">
-                <div className="sign-in-button" onClick={() => this.handleClick()}>Sign In
-                </div>
+                <button className="sign-in-button" onClick={() => this.handleClick()}>Sign In
+                </button>
               </div>
             </div>
           </div>
