@@ -13,7 +13,7 @@ const gamebuttons = [
 const actionButtons = [
   { name: 'Ready', action: 'ready' },
   { name: 'Start Game', action: 'start-game' },
-  { name: 'Select New Card', action: 'select-new-card' },
+  { name: 'New Card', action: 'select-new-card' },
   { name: 'End Game ', action: 'end-game' }
 ];
 

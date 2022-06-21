@@ -1,5 +1,18 @@
 body {
   background-color: #48a5a5;
+  font-family: "Open Sans", sans-serif, Arial;
+}
+
+h1,
+h3,
+h5,
+h6 {
+  font-family: "Work Sans", sans-serif, Arial;
+}
+
+button,
+input {
+  font-family: inherit;
 }
 
 a,
@@ -11,24 +24,15 @@ a:hover {
   display: none;
 }
 
-.tittle {
-  text-align: center;
-  margin-top: 10%;
-  margin-bottom: 10%;
-}
-
 .sign-in-button {
   width: 171px;
   height: 50px;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
-  margin-right: 0;
-  padding-top: 5px;
+  margin: 1rem 0 1.5rem;
+  padding-top: 0.31rem;
   font-size: 20px;
   border-radius: 10px;
   background-color: #c4c4c4;
   border: none;
-  text-align: center;
   cursor: pointer;
 }
 
@@ -39,18 +43,12 @@ a:hover {
 .sign-up-input {
   display: flex;
   text-align: left;
-  padding-top: 3%;
-  padding-left: 17%;
+  padding: 3% 0 0 17%;
 }
 
 .column-sign-in {
   display: flex;
   justify-content: right;
-}
-
-.column-sign-up {
-  text-align: left;
-  justify-content: left;
 }
 
 .blue-background-only {
@@ -76,12 +74,11 @@ a:hover {
   width: 100%;
   height: 93%;
   background-color: #c4c4c4;
-  margin: 25px 5px;
+  margin: 1.56rem 0.31rem;
 }
 
 .gray-background {
   width: 100%;
-  height: 93%;
   background-color: #c4c4c4;
   margin: 1.56rem;
 }
@@ -91,26 +88,18 @@ a:hover {
   text-align: left;
 }
 
-.fields,
-.labels {
-  padding-left: 50px;
-}
-
 .new-account-tittle {
-  text-align: center;
-  margin-top: 5%;
-  margin-bottom: 3%;
+  margin: 5% 0% 3%;
 }
 
 .create-account-button {
-  padding: 5px;
-  width: 12.5rem;
-  font-size: 12px;
+  padding: 0.31rem;
+  width: 200px;
+  font-size: 0.75rem;
   background-color: #e5e3e3;
   border-radius: 7px;
   border: none;
   height: 35px;
-  text-align: center;
   cursor: pointer;
 }
 
@@ -134,27 +123,20 @@ a:hover {
 .sign-up-error-message {
   height: 10px;
   color: #f00;
-  text-align: center;
-  margin-top: 1%;
-  margin-bottom: 5%;
+  margin: 1% 0% 5%;
 }
 
 .sign-up-buttons {
-  margin-top: 3%;
-  margin-bottom: 2%;
+  margin: 3% 0% 2%;
 }
 
 .sign-in-error-message {
   padding: 5%;
-  text-align: center;
   color: #f00;
 }
 
 .new-account-logo {
-  padding-left: 20%;
-  padding-right: 20%;
-  padding-bottom: 5%;
-  padding-top: 3%;
+  padding: 3% 20% 5%;
 }
 
 .new-player-logo {
@@ -164,9 +146,7 @@ a:hover {
 }
 
 .home-logo {
-  align-content: center;
-  margin-top: 1rem;
-  margin-bottom: 2.5rem;
+  margin: 1rem 0 2.5rem;
 }
 
 .home-img-logo {
@@ -192,8 +172,7 @@ a:hover {
 }
 
 .home-column-title {
-  margin-top: 10%;
-  margin-bottom: 10%;
+  margin: 10% 0%;
 }
 
 .new-account-column-title,
@@ -208,7 +187,7 @@ a:hover {
   border-radius: 10px;
   border: none;
   background-color: #c4c4c4;
-  font-size: 25px;
+  font-size: 1.56rem;
   cursor: pointer;
 }
 
@@ -218,7 +197,7 @@ a:hover {
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  font-size: 50px;
+  font-size: 3.12rem;
   color: #02133f;
 }
 
@@ -230,18 +209,14 @@ a:hover {
 
 .profile-menu {
   background-color: #fff;
-  padding-top: 10%;
-  padding-bottom: 10%;
-  padding-left: 5%;
-  margin-right: 20%;
-  margin-left: 30%;
+  padding: 10% 0 10% 5%;
+  margin: 0 20% 0 30%;
   text-align: left;
   text-decoration: underline;
 }
 
 .menu-option {
-  padding-top: 5%;
-  padding-bottom: 5%;
+  padding: 5% 0;
   cursor: pointer;
 }
 
@@ -260,11 +235,9 @@ a:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   position: fixed;
-  padding-top: 15px;
-  padding-right: 10px;
-  padding-left: 10px;
-  width: 17.18rem;
-  height: 10.62rem;
+  padding: 0.93rem 0.62rem 0;
+  width: 275px;
+  height: 170px;
   border-radius: 10px;
   background-color: white;
 }
@@ -298,8 +271,7 @@ a:hover {
 }
 
 .modal-message {
-  padding-top: 5%;
-  padding-bottom: 15%;
+  padding: 5% 0 15%;
   font-size: 0.93rem;
 }
 
@@ -308,7 +280,6 @@ a:hover {
 }
 
 .profile-error-message {
-  text-align: center;
   color: #f00;
 }
 
@@ -319,8 +290,8 @@ a:hover {
 .list-instructions {
   text-align: left;
   padding-right: 7%;
-  font-size: 15px;
-  padding-bottom: 5px;
+  padding-bottom: 0.31rem;
+  font-size: 0.93rem;
 }
 
 .instructions-button {
@@ -334,16 +305,11 @@ a:hover {
 }
 
 .acces-game-logo {
-  padding-left: 20%;
-  padding-right: 20%;
-  padding-top: 12%;
-  padding-bottom: 12%;
+  padding: 12% 20%;
 }
 
 .access-game-form-container {
-  padding-top: 15%;
-  padding-bottom: 30%;
-  padding-left: 15%;
+  padding: 15% 0 30% 15%;
 }
 
 .access-game-input {
@@ -361,8 +327,7 @@ a:hover {
 }
 
 .game-menu-logo {
-  padding-top: 5%;
-  padding-bottom: 10%;
+  padding: 5% 0 10%;
 }
 
 .game-menu-img-logo {
@@ -399,7 +364,7 @@ a:hover {
 }
 
 .direction-icon {
-  font-size: 50px;
+  font-size: 3.12rem;
 }
 
 .dots {
@@ -412,18 +377,11 @@ a:hover {
 
 .game-name {
   text-align: left;
-  padding-top: 2%;
-  padding-left: 2%;
+  padding: 2% 0 0 2%;
 }
 
 .cards-message {
   color: #008000;
-  text-align: center;
-}
-
-.cards-error-message {
-  color: #f00;
-  text-align: center;
 }
 
 .game-buttons {
@@ -431,16 +389,12 @@ a:hover {
 }
 
 .card-holder {
-  padding-top: 5%;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding: 5% 10% 0;
 }
 
 .score-container {
   width: 100%;
-  padding-top: 5%;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding: 5% 10% 0;
 }
 
 .img-card-holder {
@@ -452,10 +406,10 @@ a:hover {
   height: 200px;
   border-radius: 7px;
   background-color: #e5e3e3;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
-.small-blue-backgroud-test {
+.small-blue-backgroud-secondary {
   height: 550px;
 }
 
@@ -469,7 +423,7 @@ a:hover {
   top: 25%;
   left: 25%;
   transition: translate(-25%, -25%);
-  font-size: 30px;
+  font-size: 1.87rem;
 }
 
 .five-points-message {
@@ -479,10 +433,9 @@ a:hover {
 }
 
 .loteria-modal-message {
-  padding-top: 5%;
-  padding-bottom: 10%;
+  padding: 5% 0 10%;
   color: #008000;
-  font-size: 15px;
+  font-size: 0.93rem;
 }
 
 .user-points-green {
@@ -515,8 +468,8 @@ a:hover {
 
 .loading::after {
   content: "";
-  width: 3.1rem;
-  height: 3.1rem;
+  width: 50px;
+  height: 50px;
   border: 0.6rem solid #ddd;
   border-top-color: #092f8e;
   border-radius: 50%;
@@ -539,7 +492,7 @@ a:hover {
 
 @media screen and (min-width: 768px) {
   .ol-instructions {
-    padding-top: 50px;
+    padding-top: 3%;
   }
 
   .home-img-logo {
@@ -572,17 +525,12 @@ a:hover {
   .blue-background {
     display: flex;
     width: 1584px;
-    height: 100%;
     background-color: #092f8e;
   }
 
   .create-account-button {
-    font-size: 15px;
+    font-size: 0.93rem;
     width: 250px;
-  }
-
-  .profile-form-button {
-    text-align: center;
   }
 
   .pop-up {
@@ -628,11 +576,11 @@ a:hover {
   }
 
   .image-mark {
-    font-size: 60px;
+    font-size: 3.75rem;
   }
 
   .loteria-modal-message {
-    font-size: 27px;
+    font-size: 1.68rem;
     padding-bottom: 5%;
   }
 }
