@@ -6,9 +6,7 @@
 
 .card-container {
   width: 100%;
-  padding-top: 1%;
-  padding-right: 7%;
-  padding-left: 7%;
+  padding: 1% 7% 0;
 }
 
 .row {
@@ -21,7 +19,6 @@
 .row-reverse {
   display: flex;
   flex-wrap: wrap-reverse;
-  justify-content: center;
 }
 
 .row-reverse-home {
@@ -29,17 +26,12 @@
   flex-wrap: wrap-reverse;
 }
 
-.column,
 .column-third {
   flex-basis: 100%;
 }
 
 .players-column-half {
   flex-basis: calc(100% / 2);
-}
-
-.column-new-account {
-  flex-basis: calc(100% / 3);
 }
 
 .column-forth {
@@ -62,9 +54,7 @@
 }
 
 .game-card-container {
-  padding-top: 5%;
-  padding-right: 20%;
-  padding-left: 20%;
+  padding: 5% 20% 0;
 }
 
 .column-input {
@@ -72,10 +62,6 @@
 }
 
 @media screen and (min-width: 768px) {
-  .column {
-    flex-basis: calc(100% / 2);
-  }
-
   .column-half {
     flex-basis: calc(100% / 2);
   }
@@ -90,8 +76,6 @@
   }
 
   .card-container {
-    padding-top: 2%;
-    padding-right: 30%;
-    padding-left: 30%;
+    padding: 2% 30% 0;
   }
 }
