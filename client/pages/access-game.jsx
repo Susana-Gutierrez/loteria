@@ -10,7 +10,7 @@ const buttons = [
 const styles = {
   game: {
     width: '148px',
-    margin: '5px',
+    margin: '0.31rem',
     border: 'none',
     backgroundColor: '#e5e3e3'
   },

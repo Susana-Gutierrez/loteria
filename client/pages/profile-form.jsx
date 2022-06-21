@@ -26,7 +26,7 @@ const styles = {
     borderRadius: '7px',
     backgroundColor: '#dbdbdb',
     border: 'none',
-    margin: '3px'
+    margin: '0.18rem'
   },
   input: {
     writable: true,
