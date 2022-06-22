@@ -46,7 +46,7 @@ export default class Instructions extends React.Component {
     return (
       <>
         <div className="column-title">
-          <div className="new-account-tittle">
+          <div className="new-account-title">
             <h5>Instructions:</h5>
           </div>
         </div>

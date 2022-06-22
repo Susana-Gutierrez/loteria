@@ -279,7 +279,7 @@ export default class NewAccountForm extends React.Component {
     return (
     <>
           <div className="column-title">
-            <div className="new-account-tittle">
+            <div className="new-account-title">
               <h5>New Account</h5>
             </div>
           </div>
