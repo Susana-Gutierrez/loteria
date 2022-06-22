@@ -56,7 +56,7 @@ Try the application live at [http://loteria-lamexicana.com](http://loteria-lamex
 1. Clone the repository.
 
 ```shell
-git clone git@github.com:Susana-Gutierrez/loteria.git
+git clone git@github.com:Susana-Gutierrez/loteria-mexicana.git
 cd loteria
 ```
 
