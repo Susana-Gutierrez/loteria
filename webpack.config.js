@@ -28,14 +28,14 @@ module.exports = {
       }
     ]
   },
-  devtool: false,
+  devtool: 'source-map',
   devServer: {
     host: '0.0.0.0',
     port: process.env.DEV_SERVER_PORT,
     static: {
       directory: serverPublicPath,
       publicPath: '/',
-      watch: false
+      watch: true
     },
     proxy: {
       '/api': `http://localhost:${process.env.PORT}`
