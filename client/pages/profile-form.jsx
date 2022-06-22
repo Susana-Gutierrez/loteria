@@ -333,7 +333,7 @@ export default class ProfileForm extends React.Component {
     return (
       <>
         <div className="column-title">
-          <div className="new-account-tittle">
+          <div className="new-account-title">
             <h5>Profile</h5>
           </div>
         </div>
