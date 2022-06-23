@@ -10,7 +10,7 @@ Loteria Mexicana is part of the culture and identity of Mexicans. Growing up in 
 - HTML5
 - CSS3
 - JavaScript
-- React.js
+- React
 - Node.js
 - Express.js
 - Webpack
