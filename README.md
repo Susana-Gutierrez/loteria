@@ -3,7 +3,7 @@
 A web application for all users who want to have a good time playing a
 game similar to bingo.
 
-Loteria Mexicana is part of the culture and identity of Mexicans. Growing up in Mexico, I spent a lot of time with my family and friends playing this game on summer evenings or on rainy days. Loteria reminds me of my childhood and I wanted to share a little bit of my culture with all users that want to have fun. I also created this game to continue playing online with my love ones even in the distance.
+Loteria Mexicana is part of the culture and identity of Mexicans. Growing up in Mexico, I spent a lot of time with my family and friends playing this game on summer evenings or on rainy days. Loteria reminds me of my childhood and I wanted to share a little bit of my culture with all users that want to have fun. I also created this game to continue playing online with my loved ones even in the distance.
 
 ## Technologies Used
 
